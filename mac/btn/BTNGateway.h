@@ -8,12 +8,13 @@
 
 #import <Foundation/Foundation.h>
 #import "ORSSerialPort.h"
+@class BTNGateway;
+
 
 typedef enum BTNCommand {
     BTN_PRESSED
 } BTNCommand;
 
-@class BTNGateway;
 
 @protocol BTNGatewayDelegate <NSObject>
 //Once the BTN has been discovered
@@ -22,12 +23,14 @@ typedef enum BTNCommand {
 -(void)btnGateway:(BTNGateway *)gateway didReceiveCommand:(BTNCommand)command;
 //Connection lost to BTN
 -(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort;
+//BTN encountered an error
+-(void)btnGateway:(BTNGateway *)gateway didEncounterError:(NSError *)error;
 @end
+
 
 @interface BTNGateway : NSObject <ORSSerialPortDelegate>
 
 +(BTNGateway *)sharedGateway;
-
 +(void)addBtnGatewayDelegate:(id<BTNGatewayDelegate>)delegate;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "BTNAppDelegate.h"
-#import "BTNGateway.h"
 
 @implementation BTNAppDelegate
 {
@@ -17,7 +16,22 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     // Insert code here to initialize your application
-    gateway = [BTNGateway sharedGateway];
+    [BTNGateway addBtnGatewayDelegate:self];
+}
+
+
+#pragma mark - Temporary, just checking delegate functions are called correctly
+-(void)btnGateway:(BTNGateway *)gateway didInitializeBTN:(ORSSerialPort *)btnSerialPort {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+}
+-(void)btnGateway:(BTNGateway *)gateway didReceiveCommand:(BTNCommand)command {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+}
+-(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+}
+-(void)btnGateway:(BTNGateway *)gateway didEncounterError:(NSError *)error {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 }
 
 @end

@@ -7,8 +7,9 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "BTNGateway.h"
 
-@interface BTNAppDelegate : NSObject <NSApplicationDelegate>
+@interface BTNAppDelegate : NSObject <NSApplicationDelegate, BTNGatewayDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 

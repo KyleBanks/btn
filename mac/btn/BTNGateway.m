@@ -147,6 +147,12 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
 }
 -(void)serialPort:(ORSSerialPort *)serialPort didEncounterError:(NSError *)error {
     NSLog(@"Serial Port [%@] encountered error: %@", serialPort.path, error.description);
+    
+    if([serialPort.path isEqualToString:btnSerialPort.path]) {
+        for (id<BTNGatewayDelegate> delegate in delegates) {
+            [delegate btnGateway:self didEncounterError:error];
+        }
+    }
 }
 -(void)serialPortWasClosed:(ORSSerialPort *)serialPort {
     NSLog(@"Serial Port [%@] was closed...", serialPort.path);
