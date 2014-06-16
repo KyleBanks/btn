@@ -144,11 +144,8 @@
 				64169E3C194E609300C1F0A1 /* BTNAppDelegate.m */,
 				64131070194F41B60023B844 /* BTNAppController.h */,
 				64131071194F41B60023B844 /* BTNAppController.m */,
-				64131073194F42EF0023B844 /* MainMenu.xib */,
 				64169E64194E616100C1F0A1 /* BTNGateway.h */,
 				64169E65194E616100C1F0A1 /* BTNGateway.m */,
-				6413108A194F80A80023B844 /* NSImage+Additions.h */,
-				6413108B194F80A80023B844 /* NSImage+Additions.m */,
 				64169E41194E609300C1F0A1 /* Images.xcassets */,
 				64169E30194E609300C1F0A1 /* Supporting Files */,
 			);
@@ -159,6 +156,9 @@
 		64169E30194E609300C1F0A1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				64131073194F42EF0023B844 /* MainMenu.xib */,
+				6413108A194F80A80023B844 /* NSImage+Additions.h */,
+				6413108B194F80A80023B844 /* NSImage+Additions.m */,
 				64169E31194E609300C1F0A1 /* btn-Info.plist */,
 				64169E32194E609300C1F0A1 /* InfoPlist.strings */,
 				64169E35194E609300C1F0A1 /* main.m */,

@@ -57,6 +57,8 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:self.statusMenu];
     [statusItem setHighlightMode:YES];
+   // menuView = [[BTNMenuView alloc] initWithStatusItem:statusItem];
+    
 }
 
 -(void)setBTNConnected:(BOOL)isConnected {

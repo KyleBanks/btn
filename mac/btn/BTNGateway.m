@@ -16,13 +16,13 @@ NSInteger const SERIAL_COMM_DELAY_AFTER_CONNECTION = 2; //Seconds to wait before
 NSString * const SERIAL_COMM_MSG_PING = @"btnping";
 NSString * const SERIAL_COMM_MSG_PONG = @"btnpong";
 NSString * const SERIAL_COMM_MSG_BTN_PRESSED = @"btnpressed";
-NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
+NSString * const SERIAL_COMM_MSG_STOP = @";";
 
 @implementation BTNGateway
 {
     NSMutableArray *delegates;
     
-    NSDictionary *serialInputBuffers; //Maps the NSString path of a serial port to the NSMutableData it has received
+    NSMutableDictionary *serialInputBuffers; //Maps the NSString path of a serial port to the NSMutableData it has received
     ORSSerialPort *btnSerialPort;
 }
 
@@ -30,10 +30,10 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
 -(id) initSingleton {
     if(self = [super init]) {
         delegates = [[NSMutableArray alloc] init];
+        serialInputBuffers = [[NSMutableDictionary alloc] init];
         
         ORSSerialPortManager *manager = [ORSSerialPortManager sharedSerialPortManager];
         for(ORSSerialPort *port in [manager availablePorts]) {
-            [serialInputBuffers setValue:[[NSMutableData alloc] init] forKey:port.path];
 
             [port setBaudRate:[NSNumber numberWithInt:SERIAL_COMM_SPEED]];
             [port setDelegate:self];
@@ -45,7 +45,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
             //[port setShouldEchoReceivedData:YES];
             
             [port performSelector:@selector(sendData:)
-                       withObject:[SERIAL_COMM_MSG_PING dataUsingEncoding:NSUTF8StringEncoding]
+                       withObject:[[NSString stringWithFormat:@"%@%@", SERIAL_COMM_MSG_PING, SERIAL_COMM_MSG_STOP] dataUsingEncoding:NSUTF8StringEncoding]
                        afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
             
 //            if(port.isOpen) {
@@ -83,8 +83,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
 
 # pragma mark - Serial command processing
 -(BOOL)processCommand:(NSString *)command forSerialPort:(ORSSerialPort *)serialPort {
-    NSLog(@"Response from port %@", serialPort.path);
-    NSLog(@"Command: %@", command);
+    NSLog(@"Command Received from Serial Port[%@]: %@", serialPort.path, command);
     
     if([command isEqualToString:SERIAL_COMM_MSG_PONG]) {
         NSLog(@"BTN found! %@", serialPort.path);
@@ -108,7 +107,8 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
 
 // Checks if the NSData received from a particular serialPort has ended (ie. the full data has been received)
 -(BOOL)processSerialDataForPort:(ORSSerialPort *)serialPort {
-    NSString *receivedData = [[NSString alloc] initWithData:[serialInputBuffers objectForKey:serialPort.path] encoding:NSUTF8StringEncoding];
+    NSString *receivedData = [[NSString alloc] initWithData:[serialInputBuffers objectForKey:serialPort.path]
+                                                   encoding:NSUTF8StringEncoding];
     
     if ([receivedData rangeOfString:SERIAL_COMM_MSG_STOP].location != NSNotFound) {
         NSArray *receivedCommands = [receivedData componentsSeparatedByString:SERIAL_COMM_MSG_STOP];
@@ -135,9 +135,15 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
         return;
     }
 
-    [[serialInputBuffers objectForKey:serialPort.path] appendData:data];
+    NSMutableData *dataBuffer = [serialInputBuffers objectForKey:serialPort.path];
+    if(!dataBuffer) {
+        dataBuffer = [[NSMutableData alloc] init];
+    }
+    [dataBuffer appendData:data];
+    [serialInputBuffers setObject:dataBuffer forKey:serialPort.path];
+    
     if([self processSerialDataForPort:serialPort]) {
-        NSLog(@"Data processed for Serial Port: %@", serialPort.path);
+       // NSLog(@"Data processed for Serial Port: %@", serialPort.path);
     }
 }
 - (void)serialPortWasRemovedFromSystem:(ORSSerialPort *)serialPort {
