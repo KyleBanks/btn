@@ -7,28 +7,37 @@
 //
 
 #import "BTNAppDelegate.h"
+#import "BTNAppController.h"
 
 @implementation BTNAppDelegate
 {
     BTNGateway *gateway;
+    BTNAppController *appController;
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
-    // Insert code here to initialize your application
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    appController = [[BTNAppController alloc] initWithWindow:self.window];
     [BTNGateway addBtnGatewayDelegate:self];
 }
 
+- (void)applicationWillTerminate:(NSNotification *)notification {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    [[BTNGateway sharedGateway] disconnectBTN];
+}
 
-#pragma mark - Temporary, just checking delegate functions are called correctly
+
+#pragma mark - BTNGatewayDelegate functionality
 -(void)btnGateway:(BTNGateway *)gateway didInitializeBTN:(ORSSerialPort *)btnSerialPort {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    [appController setBTNConnected:YES];
 }
 -(void)btnGateway:(BTNGateway *)gateway didReceiveCommand:(BTNCommand)command {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 }
 -(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    [appController setBTNConnected:NO];
 }
 -(void)btnGateway:(BTNGateway *)gateway didEncounterError:(NSError *)error {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));

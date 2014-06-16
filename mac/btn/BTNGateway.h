@@ -33,4 +33,6 @@ typedef enum BTNCommand {
 +(BTNGateway *)sharedGateway;
 +(void)addBtnGatewayDelegate:(id<BTNGatewayDelegate>)delegate;
 
+-(void)disconnectBTN;
+
 @end

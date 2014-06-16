@@ -7,12 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		64131072194F41B60023B844 /* BTNAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64131071194F41B60023B844 /* BTNAppController.m */; };
+		64131074194F42EF0023B844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64131073194F42EF0023B844 /* MainMenu.xib */; };
 		64169E2A194E609300C1F0A1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E29194E609300C1F0A1 /* Cocoa.framework */; };
 		64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64169E32194E609300C1F0A1 /* InfoPlist.strings */; };
 		64169E36194E609300C1F0A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E35194E609300C1F0A1 /* main.m */; };
-		64169E3A194E609300C1F0A1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 64169E38194E609300C1F0A1 /* Credits.rtf */; };
 		64169E3D194E609300C1F0A1 /* BTNAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E3C194E609300C1F0A1 /* BTNAppDelegate.m */; };
-		64169E40194E609300C1F0A1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64169E3E194E609300C1F0A1 /* MainMenu.xib */; };
 		64169E42194E609300C1F0A1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64169E41194E609300C1F0A1 /* Images.xcassets */; };
 		64169E49194E609300C1F0A1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E48194E609300C1F0A1 /* XCTest.framework */; };
 		64169E4A194E609300C1F0A1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E29194E609300C1F0A1 /* Cocoa.framework */; };
@@ -32,6 +32,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		64131070194F41B60023B844 /* BTNAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNAppController.h; sourceTree = "<group>"; };
+		64131071194F41B60023B844 /* BTNAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNAppController.m; sourceTree = "<group>"; };
+		64131073194F42EF0023B844 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		64169E26194E609300C1F0A1 /* btn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = btn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64169E29194E609300C1F0A1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		64169E2C194E609300C1F0A1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -41,10 +44,8 @@
 		64169E33194E609300C1F0A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		64169E35194E609300C1F0A1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		64169E37194E609300C1F0A1 /* btn-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "btn-Prefix.pch"; sourceTree = "<group>"; };
-		64169E39194E609300C1F0A1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		64169E3B194E609300C1F0A1 /* BTNAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BTNAppDelegate.h; sourceTree = "<group>"; };
 		64169E3C194E609300C1F0A1 /* BTNAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BTNAppDelegate.m; sourceTree = "<group>"; };
-		64169E3F194E609300C1F0A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		64169E41194E609300C1F0A1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64169E47194E609300C1F0A1 /* btnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = btnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64169E48194E609300C1F0A1 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -121,11 +122,13 @@
 			children = (
 				64169E3B194E609300C1F0A1 /* BTNAppDelegate.h */,
 				64169E3C194E609300C1F0A1 /* BTNAppDelegate.m */,
-				64169E3E194E609300C1F0A1 /* MainMenu.xib */,
-				64169E41194E609300C1F0A1 /* Images.xcassets */,
-				64169E30194E609300C1F0A1 /* Supporting Files */,
+				64131070194F41B60023B844 /* BTNAppController.h */,
+				64131071194F41B60023B844 /* BTNAppController.m */,
+				64131073194F42EF0023B844 /* MainMenu.xib */,
 				64169E64194E616100C1F0A1 /* BTNGateway.h */,
 				64169E65194E616100C1F0A1 /* BTNGateway.m */,
+				64169E41194E609300C1F0A1 /* Images.xcassets */,
+				64169E30194E609300C1F0A1 /* Supporting Files */,
 			);
 			name = Source;
 			path = btn;
@@ -138,7 +141,6 @@
 				64169E32194E609300C1F0A1 /* InfoPlist.strings */,
 				64169E35194E609300C1F0A1 /* main.m */,
 				64169E37194E609300C1F0A1 /* btn-Prefix.pch */,
-				64169E38194E609300C1F0A1 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -233,8 +235,7 @@
 			files = (
 				64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */,
 				64169E42194E609300C1F0A1 /* Images.xcassets in Resources */,
-				64169E3A194E609300C1F0A1 /* Credits.rtf in Resources */,
-				64169E40194E609300C1F0A1 /* MainMenu.xib in Resources */,
+				64131074194F42EF0023B844 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -252,6 +253,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64131072194F41B60023B844 /* BTNAppController.m in Sources */,
 				64169E66194E616100C1F0A1 /* BTNGateway.m in Sources */,
 				64169E62194E614800C1F0A1 /* ORSSerialPort.m in Sources */,
 				64169E63194E614800C1F0A1 /* ORSSerialPortManager.m in Sources */,
@@ -284,22 +286,6 @@
 				64169E33194E609300C1F0A1 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		64169E38194E609300C1F0A1 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				64169E39194E609300C1F0A1 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		64169E3E194E609300C1F0A1 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				64169E3F194E609300C1F0A1 /* Base */,
-			);
-			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

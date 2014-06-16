@@ -72,7 +72,11 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
     [gateway addDelegate:delegate];
 }
 
-
+-(void)disconnectBTN {
+    if(btnSerialPort && [btnSerialPort isOpen]) {
+        [btnSerialPort close];
+    }
+}
 # pragma mark - Serial command processing
 -(BOOL)processCommand:(NSString *)command forSerialPort:(ORSSerialPort *)serialPort {
     NSLog(@"Response from port %@", serialPort.path);
