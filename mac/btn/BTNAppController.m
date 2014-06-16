@@ -7,22 +7,31 @@
 //
 
 #import "BTNAppController.h"
+#import "NSImage+Additions.h"
 
-NSString * const CONNECTED_TEXT = @"BTN - Connected";
-NSString * const DISCONNECTED_TEXT = @"BTN - Disonnected";
+NSInteger const CONNSTATUS_DISCONNECTED = 0;
+NSInteger const CONNSTATUS_CONNECTED = 1;
+NSInteger const CONNSTATUS_CONNECTING = 2;
 
 @implementation BTNAppController
 {
-    NSWindow *window;
     NSStatusItem *statusItem;
+    
+    int connectionStatus;
+    NSDictionary *statusIconMap;
 }
-@synthesize statusMenu;
 
--(id)initWithWindow:(NSWindow *)theWindow {
+-(id)init {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 
     if(self = [super init]) {
-        window = theWindow;
+        connectionStatus = CONNSTATUS_CONNECTING;
+        
+        statusIconMap = @{
+            [NSNumber numberWithInt:CONNSTATUS_CONNECTED]: [[NSImage imageNamed:@"connstatus_connected"] scaledToHeight:19.0f],
+            [NSNumber numberWithInt:CONNSTATUS_DISCONNECTED]: [[NSImage imageNamed:@"connstatus_disconnected"] scaledToHeight:19.0f],
+            [NSNumber numberWithInt:CONNSTATUS_CONNECTING]: [[NSImage imageNamed:@"connstatus_connecting"] scaledToHeight:19.0f]
+        };
         
         NSNib *nib = [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
         NSArray *topLevelObjects;
@@ -31,6 +40,12 @@ NSString * const DISCONNECTED_TEXT = @"BTN - Disonnected";
         } else {
             NSLog(@"BTNAppController initialized.");
         }
+        
+        [NSTimer scheduledTimerWithTimeInterval:1
+                                         target:self
+                                       selector:@selector(updateStatusBarIcon)
+                                       userInfo:nil
+                                        repeats:YES];
     }
     
     return self;
@@ -40,16 +55,20 @@ NSString * const DISCONNECTED_TEXT = @"BTN - Disonnected";
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setMenu:statusMenu];
-    [statusItem setTitle:DISCONNECTED_TEXT];
+    [statusItem setMenu:self.statusMenu];
     [statusItem setHighlightMode:YES];
 }
 
 -(void)setBTNConnected:(BOOL)isConnected {
     if(isConnected) {
-        [statusItem setTitle:CONNECTED_TEXT];
+        connectionStatus = CONNSTATUS_CONNECTED;
     } else {
-        [statusItem setTitle:DISCONNECTED_TEXT];
+        connectionStatus = CONNSTATUS_DISCONNECTED;
     }
+}
+
+-(void)updateStatusBarIcon {
+    NSImage *image = [statusIconMap objectForKey:[NSNumber numberWithInt:connectionStatus]];
+    [statusItem setImage:image];
 }
 @end

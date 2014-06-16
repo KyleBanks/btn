@@ -12,6 +12,7 @@
 static BTNGateway *singleton = nil;
 
 NSInteger const SERIAL_COMM_SPEED = 9600;
+NSInteger const SERIAL_COMM_DELAY_AFTER_CONNECTION = 2; //Seconds to wait before sending data after the serial port connects
 NSString * const SERIAL_COMM_MSG_PING = @"btnping";
 NSString * const SERIAL_COMM_MSG_PONG = @"btnpong";
 NSString * const SERIAL_COMM_MSG_BTN_PRESSED = @"btnpressed";
@@ -43,7 +44,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
             }
             //[port setShouldEchoReceivedData:YES];
             
-            [self performSelector:@selector(sendPing:) withObject:port afterDelay:1];
+            [self performSelector:@selector(sendPing:) withObject:port afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
             
 //            if(port.isOpen) {
 //                [port close];

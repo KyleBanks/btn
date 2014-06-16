@@ -12,8 +12,6 @@
 
 @property (strong) IBOutlet NSMenu *statusMenu;
 
--(id)initWithWindow:(NSWindow *)window;
-
 -(void)setBTNConnected:(BOOL)isConnected;
 
 @end

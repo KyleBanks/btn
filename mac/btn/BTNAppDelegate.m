@@ -17,7 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-    appController = [[BTNAppController alloc] initWithWindow:self.window];
+    appController = [[BTNAppController alloc] init];
     [BTNGateway addBtnGatewayDelegate:self];
 }
 
