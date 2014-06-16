@@ -44,7 +44,9 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
             }
             //[port setShouldEchoReceivedData:YES];
             
-            [self performSelector:@selector(sendPing:) withObject:port afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
+            [port performSelector:@selector(sendData:)
+                       withObject:[SERIAL_COMM_MSG_PING dataUsingEncoding:NSUTF8StringEncoding]
+                       afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
             
 //            if(port.isOpen) {
 //                [port close];
@@ -53,10 +55,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
     }
     return self;
 }
--(void)sendPing:(ORSSerialPort *)port {
-    NSLog(@"Pinging Serial Port %@...", port.path);
-    [port sendData:[SERIAL_COMM_MSG_PING dataUsingEncoding:NSUTF8StringEncoding]];
-}
+
 +(BTNGateway *)sharedGateway {
     if (!singleton) {
         singleton = [[BTNGateway alloc] initSingleton];
@@ -65,6 +64,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
     return singleton;
 }
 
+# pragma mark - Delegate management
 -(void)addDelegate:(id<BTNGatewayDelegate>)delegate {
     [delegates addObject:delegate];
 }
@@ -73,11 +73,14 @@ NSString * const SERIAL_COMM_MSG_STOP = @"STOP";
     [gateway addDelegate:delegate];
 }
 
+
+# pragma mark - Shutdown
 -(void)disconnectBTN {
     if(btnSerialPort && [btnSerialPort isOpen]) {
         [btnSerialPort close];
     }
 }
+
 # pragma mark - Serial command processing
 -(BOOL)processCommand:(NSString *)command forSerialPort:(ORSSerialPort *)serialPort {
     NSLog(@"Response from port %@", serialPort.path);
