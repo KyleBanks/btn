@@ -34,6 +34,14 @@
 }
 -(void)btnGateway:(BTNGateway *)gateway didReceiveCommand:(BTNCommand)command {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    
+    switch (command) {
+        case BTN_PRESSED:
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://google.com"]];
+            break;
+        default:
+            break;
+    }
 }
 -(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));

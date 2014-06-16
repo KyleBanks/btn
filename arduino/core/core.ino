@@ -12,15 +12,17 @@ const int PIN_LED = 13;
 String serialCommBuffer;
 
 void setup() {
-    Serial.begin(SERIAL_COMM_SPEED);
-    while(!Serial) {
-      //Wait
-    }
-    
-    serialCommBuffer = "";
-    
-    pinMode(PIN_LED, OUTPUT); 
-    digitalWrite(PIN_LED, LOW);
+  Serial.begin(SERIAL_COMM_SPEED);
+  while(!Serial) {
+    //Wait
+  }
+  
+  serialCommBuffer = "";  
+  
+  pinMode(PIN_LED, OUTPUT); 
+  digitalWrite(PIN_LED, LOW);
+  
+  sendSerialData(SERIAL_COMM_MSG_BTN_PRESSED);
 }
 
 void loop() {

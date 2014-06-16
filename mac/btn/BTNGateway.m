@@ -13,6 +13,7 @@ static BTNGateway *singleton = nil;
 
 NSInteger const SERIAL_COMM_SPEED = 9600;
 NSInteger const SERIAL_COMM_DELAY_AFTER_CONNECTION = 2; //Seconds to wait before sending data after the serial port connects
+NSInteger const SERIAL_COMM_PORT_SCAN_INTERVAL = 4; //How often to scan for BTN connections when btn is disconnected
 NSString * const SERIAL_COMM_MSG_PING = @"btnping";
 NSString * const SERIAL_COMM_MSG_PONG = @"btnpong";
 NSString * const SERIAL_COMM_MSG_BTN_PRESSED = @"btnpressed";
@@ -32,26 +33,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
         delegates = [[NSMutableArray alloc] init];
         serialInputBuffers = [[NSMutableDictionary alloc] init];
         
-        ORSSerialPortManager *manager = [ORSSerialPortManager sharedSerialPortManager];
-        for(ORSSerialPort *port in [manager availablePorts]) {
-
-            [port setBaudRate:[NSNumber numberWithInt:SERIAL_COMM_SPEED]];
-            [port setDelegate:self];
-
-            if(!port.isOpen) {
-                NSLog(@"Opening port %@", port.path);
-                [port open];
-            }
-            //[port setShouldEchoReceivedData:YES];
-            
-            [port performSelector:@selector(sendData:)
-                       withObject:[[NSString stringWithFormat:@"%@%@", SERIAL_COMM_MSG_PING, SERIAL_COMM_MSG_STOP] dataUsingEncoding:NSUTF8StringEncoding]
-                       afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
-            
-//            if(port.isOpen) {
-//                [port close];
-//            }
-        }
+        [self scanSerialPorts];
     }
     return self;
 }
@@ -73,6 +55,31 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
     [gateway addDelegate:delegate];
 }
 
+#pragma mark - Discovery
+-(void)scanSerialPorts {
+    if(btnSerialPort) {
+        return;
+    }
+    
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    ORSSerialPortManager *manager = [ORSSerialPortManager sharedSerialPortManager];
+    for(ORSSerialPort *port in [manager availablePorts]) {
+        [port setBaudRate:[NSNumber numberWithInt:SERIAL_COMM_SPEED]];
+        [port setDelegate:self];
+        
+        if(!port.isOpen) {
+            [port open];
+        }
+        
+        [port performSelector:@selector(sendData:)
+                   withObject:[[NSString stringWithFormat:@"%@%@", SERIAL_COMM_MSG_PING, SERIAL_COMM_MSG_STOP] dataUsingEncoding:NSUTF8StringEncoding]
+                   afterDelay:SERIAL_COMM_DELAY_AFTER_CONNECTION];
+    }
+
+    [self performSelector:@selector(scanSerialPorts)
+               withObject:nil
+               afterDelay:SERIAL_COMM_PORT_SCAN_INTERVAL];
+}
 
 # pragma mark - Shutdown
 -(void)disconnectBTN {
@@ -82,9 +89,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
 }
 
 # pragma mark - Serial command processing
--(BOOL)processCommand:(NSString *)command forSerialPort:(ORSSerialPort *)serialPort {
-    NSLog(@"Command Received from Serial Port[%@]: %@", serialPort.path, command);
-    
+-(BOOL)processCommand:(NSString *)command forSerialPort:(ORSSerialPort *)serialPort {    
     if([command isEqualToString:SERIAL_COMM_MSG_PONG]) {
         NSLog(@"BTN found! %@", serialPort.path);
         btnSerialPort = serialPort;
@@ -93,15 +98,16 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
             [delegate btnGateway:self didInitializeBTN:btnSerialPort];
         }
         return YES;
-    } else if([command isEqualToString:SERIAL_COMM_MSG_BTN_PRESSED]) {
-        NSLog(@"BTN pressed");
-        
-        for (id<BTNGatewayDelegate> delegate in delegates) {
-            [delegate btnGateway:self didReceiveCommand:BTN_PRESSED];
+    } else if([serialPort.path isEqualToString:btnSerialPort.path]) {
+        if([command isEqualToString:SERIAL_COMM_MSG_BTN_PRESSED]) {
+            NSLog(@"BTN pressed");
+            
+            for (id<BTNGatewayDelegate> delegate in delegates) {
+                [delegate btnGateway:self didReceiveCommand:BTN_PRESSED];
+            }
+            return YES;
         }
-        return YES;
     }
-    
     return NO;
 }
 
@@ -151,6 +157,8 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
     [serialPort close];
     
     if([serialPort.path isEqualToString:btnSerialPort.path]) {
+        btnSerialPort = nil;
+        [self scanSerialPorts];
         for (id<BTNGatewayDelegate> delegate in delegates) {
             [delegate btnGateway:self lostConnectionToBTN:btnSerialPort];
         }
