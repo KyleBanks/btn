@@ -8,6 +8,10 @@
 
 #import "BTNApplication.h"
 
+#define kDISPLAY_NAME @"displayName"
+#define kPATH @"path"
+#define kIMAGE @"image"
+
 @implementation BTNApplication
 
 -(id)initWithDisplayName:(NSString *)displayName andPath:(NSURL *)path andImage:(NSImage *)image {
@@ -18,6 +22,33 @@
     }
     
     return self;
+}
+
+-(void) encodeWithCoder:(NSCoder *)aCoder {
+    [aCoder encodeObject:self.displayName forKey:kDISPLAY_NAME];
+    [aCoder encodeObject:self.path forKey:kPATH];
+    [aCoder encodeObject:self.image forKey:kIMAGE];
+}
+-(id) initWithCoder:(NSCoder *)aDecoder {
+    if(self = [super init]) {
+        self.displayName = [aDecoder decodeObjectForKey:kDISPLAY_NAME];
+        self.path = [aDecoder decodeObjectForKey:kPATH];
+        self.image = [aDecoder decodeObjectForKey:kIMAGE];
+    }
+    
+    return self;
+}
+
+-(BOOL)isEqualTo:(id)object {
+    if([object isKindOfClass:[BTNApplication class]]) {
+        BTNApplication *other = (BTNApplication *)object;
+        
+        if([other.path isEqualTo:self.path]) {
+            return YES;
+        }
+    }
+    
+    return NO;
 }
 
 @end

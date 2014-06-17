@@ -8,7 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BTNApplication : NSObject
+#define kSELECTED_APPLICATION @"btn-selected-application"
+
+@interface BTNApplication : NSObject <NSCoding>
 
 @property NSString *displayName;
 @property NSURL *path;

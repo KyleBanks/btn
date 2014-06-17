@@ -8,6 +8,7 @@
 
 #import "BTNAppDelegate.h"
 #import "BTNAppController.h"
+#import "BTNApplication.h"
 
 @implementation BTNAppDelegate
 {
@@ -17,15 +18,36 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    
+    NSData *selectedApplicationData = [[NSUserDefaults standardUserDefaults] objectForKey:kSELECTED_APPLICATION];
+    if(selectedApplicationData) {
+        self.selectedApplication = [NSKeyedUnarchiver unarchiveObjectWithData:selectedApplicationData];
+        NSLog(@"Found serialized Selected Application: %@", self.selectedApplication.displayName);
+    }
+    
     appController = [[BTNAppController alloc] init];
+    appController.appDelegate = self;
     [BTNGateway addBtnGatewayDelegate:self];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)notification {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     [[BTNGateway sharedGateway] disconnectBTN];
+    [self saveSelectedApplication];
+}
+-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *) sender{
+    return YES;
 }
 
+-(void)saveSelectedApplication {
+    if(self.selectedApplication) {
+        NSLog(@"Serializing Selected Application: %@", self.selectedApplication.displayName);
+        NSUserDefaults* defaults=[NSUserDefaults standardUserDefaults];
+        NSData* notificationsData=[NSKeyedArchiver archivedDataWithRootObject:self.selectedApplication];
+        [defaults setObject: notificationsData forKey:kSELECTED_APPLICATION];
+        [defaults synchronize];
+    }
+}
 
 #pragma mark - BTNGatewayDelegate functionality
 -(void)btnGateway:(BTNGateway *)gateway didInitializeBTN:(ORSSerialPort *)btnSerialPort {
@@ -37,7 +59,15 @@
     
     switch (command) {
         case BTN_PRESSED:
-            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://google.com"]];
+            if(self.selectedApplication) {
+                NSLog(@"Launching %@ (%@)...", self.selectedApplication.displayName, self.selectedApplication.path.path);
+                NSRunningApplication * newApp = [[NSWorkspace sharedWorkspace] launchApplicationAtURL:self.selectedApplication.path
+                                                              options:NSWorkspaceLaunchDefault
+                                                        configuration:nil
+                                                                error:nil];
+                [newApp activateWithOptions: NSApplicationActivateAllWindows];
+                
+            }
             break;
         default:
             break;

@@ -9,6 +9,7 @@
 #import "BTNAppController.h"
 #import "NSImage+Additions.h"
 #import "BTNApplication.h"
+#import "BTNAppDelegate.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -99,6 +100,8 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
         NSString *displayName = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemDisplayName];
         NSString *path = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemPath];
         NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+        path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
         
         if(displayName && path && image) {
             [tmpApplicationList addObject:[[BTNApplication alloc] initWithDisplayName:displayName
@@ -116,13 +119,36 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     int index = 0;
     for(BTNApplication *app in applicationList) {
-        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:app.displayName
-                                                      action:@selector(queryForInstalledApplications)
-                                               keyEquivalent:@""];
-        [item setImage:app.image];
-        [self.statusMenu addItem:item];
         
+        NSMenuItem *item = [[NSMenuItem alloc] init];
+        NSArray *topLevelObjects;
+        [[NSBundle mainBundle] loadNibNamed:@"ApplicationItemView"
+                                      owner:nil
+                            topLevelObjects:&topLevelObjects];
+        for(id topLevelObject in topLevelObjects) {
+            if([topLevelObject isKindOfClass:[BTNApplicationItemView class]]) {
+                BTNApplicationItemView *applicationItemView = (BTNApplicationItemView *) topLevelObject;
+                applicationItemView.delegate = self;
+                applicationItemView.application = app;
+
+                item.view = applicationItemView;
+                [self.statusMenu addItem:item];
+                break;
+            }
+        }
+
         index++;
     }
+}
+
+#pragma mark BTNApplicationItemViewDelegate
+-(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event {
+    [self.statusMenu cancelTracking];
+    
+    self.appDelegate.selectedApplication = application;
+    [self.appDelegate saveSelectedApplication];
+}
+-(BTNApplication *)selectedApplication {
+    return self.appDelegate.selectedApplication;
 }
 @end

@@ -31,7 +31,6 @@
 }
 - (NSImage *) scaledToHeight:(CGFloat)newHeight {
     CGFloat newWidth = (newHeight/self.size.height) * self.size.width;
-    NSLog(@"New Width: %f", newWidth);
     
     return [self withNewSize:NSSizeFromCGSize(CGSizeMake(newWidth, newHeight))];
 }
