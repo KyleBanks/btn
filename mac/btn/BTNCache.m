@@ -10,9 +10,7 @@
 #import "BTNApplication.h"
 #import "BTNScript.h"
 
-NSString * const kPREFERRED_ACTION = @"btn-preferred-action";
-
-NSString * const kSELECTED_APPLICATION = @"btn-selected-application";
+NSString * const kSELECTED_APPLICATION = @"btn-selected-application-4";
 NSString * const kSELECTED_SCRIPT = @"btn-selected-script-2";
 NSString * const kSELECTED_URLS = @"btn-selected-urls";
 
@@ -20,9 +18,7 @@ static BTNCache *sharedCache;
 
 @implementation BTNCache
 {
-    BTNAction preferredAction;
-
-    BTNApplication *selectedApplication;
+    NSMutableArray *selectedApplications;
     BTNScript *selectedScript;
     NSMutableArray *selectedURLs;
 }
@@ -32,19 +28,12 @@ static BTNCache *sharedCache;
     if(self = [super init]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         
-        NSData *preferredActionData = [defaults objectForKey:kPREFERRED_ACTION];
-        if(preferredActionData) {
-            preferredAction = [[NSKeyedUnarchiver unarchiveObjectWithData:preferredActionData] integerValue];
-            NSLog(@"Found serialized Preferred Action: %ld", self.preferredAction);
-        } else {
-            NSLog(@"Did not find a preferred action, setting to BTNActionDoNothing...");
-            preferredAction = BTNActionDoNothing;
-        }
-        
         NSData *selectedApplicationData = [defaults objectForKey:kSELECTED_APPLICATION];
         if(selectedApplicationData) {
-            selectedApplication = [NSKeyedUnarchiver unarchiveObjectWithData:selectedApplicationData];
-            NSLog(@"Found serialized Selected Application: %@", self.selectedApplication.displayName);
+            selectedApplications = [[NSMutableArray alloc] initWithArray:[NSKeyedUnarchiver unarchiveObjectWithData:selectedApplicationData]];
+            NSLog(@"Found serialized Selected Applications: %ld", self.selectedApplications.count);
+        } else {
+            selectedApplications = [[NSMutableArray alloc] init];
         }
         
         NSData *selectedScriptData = [defaults objectForKey:kSELECTED_SCRIPT];
@@ -73,30 +62,19 @@ static BTNCache *sharedCache;
     return sharedCache;
 }
 
-#pragma mark - Preferred Action cache
--(void)setPreferredAction:(BTNAction)thePreferredAction {
-    NSLog(@"Serializing Preferred Action: %ld", thePreferredAction);
-    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:[NSNumber numberWithInteger:thePreferredAction]];
-    [self cacheData:data forKey:kPREFERRED_ACTION];
-    
-    preferredAction = thePreferredAction;
-}
-
--(BTNAction)preferredAction {
-    return preferredAction;
-}
-
 #pragma mark - Selected Application cache
--(void)setSelectedApplication:(BTNApplication *)theSelectedApplication {
-    if(theSelectedApplication) {
-        NSLog(@"Serializing Selected Application: %@", theSelectedApplication.displayName);
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:theSelectedApplication];
+-(void)setSelectedApplications:(NSMutableArray *)theSelectedApplications {
+    if(theSelectedApplications) {
+        NSLog(@"Serializing Selected Applications: %ld", theSelectedApplications.count);
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:theSelectedApplications];
         [self cacheData:data forKey:kSELECTED_APPLICATION];
+    } else {
+        [self clearCacheForKey:kSELECTED_APPLICATION];
     }
-    selectedApplication = theSelectedApplication;
+    selectedApplications = theSelectedApplications;
 }
--(BTNApplication *)selectedApplication {
-    return selectedApplication;
+-(NSMutableArray *)selectedApplications {
+    return selectedApplications;
 }
 
 #pragma mark - Selected Script cache
@@ -105,6 +83,8 @@ static BTNCache *sharedCache;
         NSLog(@"Serializing Selected Script: %@", theSelectedScript.path.path);
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:theSelectedScript];
         [self cacheData:data forKey:kSELECTED_SCRIPT];
+    } else {
+        [self clearCacheForKey:kSELECTED_SCRIPT];
     }
     selectedScript = theSelectedScript;
 }
@@ -128,8 +108,13 @@ static BTNCache *sharedCache;
 
 #pragma mark - Caching helper methods, internal only
 -(void)cacheData:(NSData *)data forKey:(NSString *)key {
-    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:data forKey:key];
+    [defaults synchronize];
+}
+-(void)clearCacheForKey:(NSString *)key {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults removeObjectForKey:key];
     [defaults synchronize];
 }
 

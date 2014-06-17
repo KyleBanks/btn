@@ -12,7 +12,6 @@
 
 @protocol BTNApplicationItemViewDelegate <NSObject>
 -(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event;
--(BTNApplication *)selectedApplication;
 @end
 
 

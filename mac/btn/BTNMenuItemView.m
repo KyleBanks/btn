@@ -25,12 +25,29 @@
 {
     [super drawRect:dirtyRect];
     
-    if(self.representingAction == [BTNCache sharedCache].preferredAction) {
-        [self.imgSelected setImage:[NSImage imageNamed:@"checkmark"]];
-    } else {
-        [self.imgSelected setImage:nil];
-    }
     self.txtLabel.stringValue = [BTNActionHelper titleForBTNAction:self.representingAction];
+    
+    BTNCache *cache = [BTNCache sharedCache];
+    NSInteger count = 0;
+    switch (self.representingAction) {
+        case BTNActionExecuteScript:
+            count = cache.selectedScript != nil ? 1 : 0;
+            break;
+        case BTNActionOpenApplication:
+            count = cache.selectedApplications.count;
+            break;
+        case BTNActionOpenURL:
+            count = cache.selectedURLs.count;
+            break;
+        default:
+            break;
+    }
+    
+    if(count > 0) {
+        self.btnItemCount.title = [NSString stringWithFormat:@"%ld", count];
+        [self.btnItemCount setHidden:NO];
+    } else {
+        [self.btnItemCount setHidden:YES];
+    }
 }
-
 @end

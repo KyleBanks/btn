@@ -12,7 +12,7 @@
 @interface BTNMenuItemView : NSView
 
 @property (weak) IBOutlet NSTextField *txtLabel;
-@property (weak) IBOutlet NSImageView *imgSelected;
+@property (weak) IBOutlet NSButton *btnItemCount;
 
 @property BTNAction representingAction;
 

@@ -17,11 +17,8 @@
 +(BTNCache *)sharedCache;
 
 
--(BTNAction)preferredAction;
--(void)setPreferredAction:(BTNAction)preferredAction;
-
--(BTNApplication *)selectedApplication;
--(void)setSelectedApplication:(BTNApplication *)selectedApplication;
+-(NSMutableArray *)selectedApplications;
+-(void)setSelectedApplications:(NSMutableArray *)selectedApplications;
 
 -(BTNScript *)selectedScript;
 -(void)setSelectedScript:(BTNScript *)selectedScript;

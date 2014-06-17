@@ -12,7 +12,7 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="M5y-lM-9Ui">
-                    <rect key="frame" x="41" y="6" width="153" height="17"/>
+                    <rect key="frame" x="47" y="6" width="147" height="17"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Label" id="m5e-s9-OYL">
                         <font key="font" metaFont="system" size="14"/>
@@ -20,11 +20,6 @@
                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
                 </textField>
-                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1lJ-RH-oj6">
-                    <rect key="frame" x="20" y="7" width="15" height="15"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="4Y1-xY-DpJ"/>
-                </imageView>
                 <button horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbm-qK-gRX">
                     <rect key="frame" x="200" y="8" width="13" height="13"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -33,9 +28,17 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
+                <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pzq-Na-U9F">
+                    <rect key="frame" x="24" y="4" width="17" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="inline" title="Inline Button" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="VAt-tE-5wa">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="smallSystemBold"/>
+                    </buttonCell>
+                </button>
             </subviews>
             <connections>
-                <outlet property="imgSelected" destination="1lJ-RH-oj6" id="rud-Qe-aLm"/>
+                <outlet property="btnItemCount" destination="Pzq-Na-U9F" id="gBO-Qv-8BB"/>
                 <outlet property="txtLabel" destination="M5y-lM-9Ui" id="Gmr-nc-rxk"/>
             </connections>
         </customView>

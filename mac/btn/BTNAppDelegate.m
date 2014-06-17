@@ -39,52 +39,42 @@
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     
     BTNCache *cache = [BTNCache sharedCache];
-    BTNAction preferredAction = cache.preferredAction;
-    BTNApplication *selectedApplication;
-    BTNScript *selectedScript;
-    NSAlert *alert;
-    NSError *err;
     
     if(command == BTN_PRESSED) {
-        switch (preferredAction) {
-            case BTNActionOpenApplication:
-                selectedApplication = cache.selectedApplication;
-                if(selectedApplication) {
-                    NSLog(@"Launching %@ (%@)...", selectedApplication.displayName, selectedApplication.path.path);
-                    NSRunningApplication * newApp = [[NSWorkspace sharedWorkspace] launchApplicationAtURL:selectedApplication.path
-                                                                                                  options:NSWorkspaceLaunchDefault
-                                                                                            configuration:nil
-                                                                                                    error:nil];
-                    [newApp activateWithOptions: NSApplicationActivateAllWindows];
-                    
+        
+        for(BTNApplication *selectedApplication in cache.selectedApplications) {
+            if(selectedApplication) {
+                NSLog(@"Launching %@ (%@)...", selectedApplication.displayName, selectedApplication.path.path);
+                NSRunningApplication * newApp = [[NSWorkspace sharedWorkspace] launchApplicationAtURL:selectedApplication.path
+                                                                                              options:NSWorkspaceLaunchDefault
+                                                                                        configuration:nil
+                                                                                                error:nil];
+                [newApp activateWithOptions: NSApplicationActivateAllWindows];
+                
+            }
+        }
+        
+        if (cache.selectedScript != nil) {
+            BTNScript *selectedScript = cache.selectedScript;
+            if(selectedScript) {
+                NSError *err;
+                NSString *output = [selectedScript executeWithError:&err];
+                
+                NSAlert *alert = [[NSAlert alloc] init];
+                [alert addButtonWithTitle:@"OK"];
+                if(err) {
+                    NSLog(@"ERROR: %@", err);
+                    [alert setMessageText:@"Error Executing Script"];
+                    [alert setInformativeText:err.description];
+                    [alert setAlertStyle:NSCriticalAlertStyle];
+                } else {
+                    NSLog(@"output: %@", output);
+                    [alert setMessageText:@"Script Executed"];
+                    [alert setInformativeText:output];
+                    [alert setAlertStyle:NSInformationalAlertStyle];
                 }
-                break;
-            case BTNActionExecuteScript:
-                selectedScript = cache.selectedScript;
-                if(selectedScript) {
-                    NSString *output = [selectedScript executeWithError:&err];
-                    alert = [[NSAlert alloc] init];
-                    [alert addButtonWithTitle:@"OK"];
-                    if(err) {
-                        NSLog(@"ERROR: %@", err);
-                        [alert setMessageText:@"Error Executing Script"];
-                        [alert setInformativeText:err.description];
-                        [alert setAlertStyle:NSCriticalAlertStyle];
-                    } else {
-                        NSLog(@"output: %@", output);
-                        [alert setMessageText:@"Script Executed"];
-                        [alert setInformativeText:output];
-                        [alert setAlertStyle:NSInformationalAlertStyle];
-                    }
-                    [alert runModal];
-                }
-                break;
-            case BTNActionDoNothing:
-                NSLog(@"Doing nothing, ignoring BTN press.");
-                break;
-            default:
-                NSLog(@"ERROR: Unknown preferred action: %ld", preferredAction);
-                break;
+                [alert runModal];
+            }
         }
     }
 }

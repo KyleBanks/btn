@@ -9,6 +9,7 @@
 #import "BTNApplicationItemView.h"
 #import "BTNApplication.h"
 #import "BTNAppDelegate.h"
+#import "BTNCache.h"
 
 @implementation BTNApplicationItemView
 
@@ -29,7 +30,7 @@
     [[self.txtDisplayName cell] setLineBreakMode:NSLineBreakByTruncatingTail];
     self.imgImage.image = self.application.image;
     
-    if([self.application isEqualTo:self.delegate.selectedApplication]) {
+    if([[BTNCache sharedCache].selectedApplications containsObject:self.application]) {
         [self.imgSelected setImage:[NSImage imageNamed:@"checkmark"]];
     } else {
         [self.imgSelected setImage:nil];

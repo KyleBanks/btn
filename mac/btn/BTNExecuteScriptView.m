@@ -11,9 +11,6 @@
 #import "BTNScript.h"
 
 @implementation BTNExecuteScriptView
-{
-    NSOpenPanel *fileDialog;
-}
 
 - (id)initWithFrame:(NSRect)frame
 {
@@ -40,16 +37,11 @@
 
 -(void)cmdSelectScriptClicked {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-    [self performSelectorInBackground:@selector(displayFilePicker)
-                           withObject:nil];
+    [self displayFilePicker];
 }
 
 -(void)displayFilePicker {
-    if(fileDialog) {
-        [fileDialog close];
-    }
-    
-    fileDialog = [NSOpenPanel openPanel];
+    NSOpenPanel *fileDialog = [NSOpenPanel openPanel];
     
     [fileDialog setPrompt:@"Select"];
     [fileDialog setTitle:@"Select Script (.sh)"];

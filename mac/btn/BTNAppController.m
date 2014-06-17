@@ -255,17 +255,20 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 -(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event {
     [self.statusMenu cancelTracking];
     
-    [BTNCache sharedCache].selectedApplication = application;
-    [BTNCache sharedCache].preferredAction = BTNActionOpenApplication;
-}
--(BTNApplication *)selectedApplication {
-    return [BTNCache sharedCache].selectedApplication;
+    BTNCache *cache = [BTNCache sharedCache];
+    NSMutableArray *newApplicationList = [[NSMutableArray alloc] initWithArray:cache.selectedApplications];
+
+    if([newApplicationList containsObject:application]) {
+        [newApplicationList removeObject:application];
+    } else {
+        [newApplicationList addObject:application];
+    }
+    cache.selectedApplications = newApplicationList;
 }
 #pragma mark - BTNExecuteScriptViewDelegate
 -(void)btnExecuteScriptView:(BTNExecuteScriptView *)executeScriptView didSelectScript:(BTNScript *)script {
     [self.statusMenu cancelTracking];
     
     [BTNCache sharedCache].selectedScript = script;
-    [BTNCache sharedCache].preferredAction = BTNActionExecuteScript;
 }
 @end

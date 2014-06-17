@@ -61,7 +61,6 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
         return;
     }
     
-    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     ORSSerialPortManager *manager = [ORSSerialPortManager sharedSerialPortManager];
     for(ORSSerialPort *port in [manager availablePorts]) {
         [port setBaudRate:[NSNumber numberWithInt:SERIAL_COMM_SPEED]];
@@ -168,9 +167,9 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
     NSLog(@"Serial Port [%@] was opened...", serialPort.path);
 }
 -(void)serialPort:(ORSSerialPort *)serialPort didEncounterError:(NSError *)error {
-    NSLog(@"Serial Port [%@] encountered error: %@", serialPort.path, error.description);
-    
     if([serialPort.path isEqualToString:btnSerialPort.path]) {
+        NSLog(@"BTN [%@] encountered error: %@", serialPort.path, error.description);
+
         for (id<BTNGatewayDelegate> delegate in delegates) {
             [delegate btnGateway:self didEncounterError:error];
         }
