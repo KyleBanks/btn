@@ -26,4 +26,7 @@
 -(BTNScript *)selectedScript;
 -(void)setSelectedScript:(BTNScript *)selectedScript;
 
+-(NSMutableArray *)selectedURLs;
+-(void)setSelectedURLS:(NSArray *)selectedURLs;
+
 @end

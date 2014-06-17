@@ -11,6 +11,7 @@
 #import "BTNApplication.h"
 #import "BTNCache.h"
 #import "BTNMenuItemView.h"
+#import "BTNOpenURLView.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -100,6 +101,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     NSMenuItem *itemOpenURL = [[NSMenuItem alloc] init];
     [itemOpenURL setView:[self constructMenuItemViewForAction:BTNActionOpenURL]];
+    itemOpenURL.submenu = [self constructOpenURLSubmenu];
     [self.statusMenu addItem:itemOpenURL];
     
     NSMenuItem *itemExecuteScript = [[NSMenuItem alloc] init];
@@ -154,7 +156,30 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     [itemApplicationList setSubmenu:submenu];
 }
-
+-(NSMenu *)constructOpenURLSubmenu {
+    NSMenu *subMenu = [[NSMenu alloc] init];
+    
+    BTNOpenURLView *view = nil;
+    NSArray *topLevelObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"OpenURLView"
+                                  owner:nil
+                        topLevelObjects:&topLevelObjects];
+    
+    for(id topLevelObject in topLevelObjects) {
+        if([topLevelObject isKindOfClass:[BTNOpenURLView class]]) {
+            view = (BTNOpenURLView *) topLevelObject;
+            break;
+        }
+    }
+    
+    
+    NSMenuItem *openURLItem = [[NSMenuItem alloc] init];
+    [openURLItem setView:view];
+    [subMenu addItem:openURLItem];
+    
+    return subMenu;
+    
+}
 -(NSMenu *)constructExecuteScriptSubmenu {
     NSMenu *submenu = [[NSMenu alloc] init];
     
@@ -242,7 +267,5 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     [BTNCache sharedCache].selectedScript = script;
     [BTNCache sharedCache].preferredAction = BTNActionExecuteScript;
-    
-    [[BTNGateway sharedGateway] simulateBTNPress];
 }
 @end
