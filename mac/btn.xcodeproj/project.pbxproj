@@ -26,6 +26,11 @@
 		641310B81950C7200023B844 /* BTNScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310B71950C7200023B844 /* BTNScript.m */; };
 		641310C01950D6850023B844 /* appicon-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310BF1950D6850023B844 /* appicon-512.png */; };
 		641310C31950D81A0023B844 /* appicon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310C21950D81A0023B844 /* appicon-1024.png */; };
+		641310C51950DB190023B844 /* appicon-256.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310C41950DB190023B844 /* appicon-256.png */; };
+		641310C71950DB3E0023B844 /* appicon-128.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310C61950DB3E0023B844 /* appicon-128.png */; };
+		641310C91950DB620023B844 /* appicon-64.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310C81950DB620023B844 /* appicon-64.png */; };
+		641310CB1950DB790023B844 /* appicon-32.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310CA1950DB790023B844 /* appicon-32.png */; };
+		641310CD1950DB940023B844 /* appicon-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310CC1950DB940023B844 /* appicon-16.png */; };
 		64169E2A194E609300C1F0A1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E29194E609300C1F0A1 /* Cocoa.framework */; };
 		64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64169E32194E609300C1F0A1 /* InfoPlist.strings */; };
 		64169E36194E609300C1F0A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E35194E609300C1F0A1 /* main.m */; };
@@ -78,6 +83,11 @@
 		641310B71950C7200023B844 /* BTNScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNScript.m; sourceTree = "<group>"; };
 		641310BF1950D6850023B844 /* appicon-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-512.png"; sourceTree = "<group>"; };
 		641310C21950D81A0023B844 /* appicon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-1024.png"; sourceTree = "<group>"; };
+		641310C41950DB190023B844 /* appicon-256.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-256.png"; sourceTree = "<group>"; };
+		641310C61950DB3E0023B844 /* appicon-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-128.png"; sourceTree = "<group>"; };
+		641310C81950DB620023B844 /* appicon-64.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-64.png"; sourceTree = "<group>"; };
+		641310CA1950DB790023B844 /* appicon-32.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-32.png"; sourceTree = "<group>"; };
+		641310CC1950DB940023B844 /* appicon-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-16.png"; sourceTree = "<group>"; };
 		64169E26194E609300C1F0A1 /* btn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = btn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64169E29194E609300C1F0A1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		64169E2C194E609300C1F0A1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -176,6 +186,11 @@
 		641310C11950D8100023B844 /* AppIcon */ = {
 			isa = PBXGroup;
 			children = (
+				641310CC1950DB940023B844 /* appicon-16.png */,
+				641310CA1950DB790023B844 /* appicon-32.png */,
+				641310C81950DB620023B844 /* appicon-64.png */,
+				641310C61950DB3E0023B844 /* appicon-128.png */,
+				641310C41950DB190023B844 /* appicon-256.png */,
 				641310C21950D81A0023B844 /* appicon-1024.png */,
 				641310BF1950D6850023B844 /* appicon-512.png */,
 			);
@@ -344,7 +359,10 @@
 			files = (
 				64131092194F87920023B844 /* connstatus_disconnected.png in Resources */,
 				64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */,
+				641310C51950DB190023B844 /* appicon-256.png in Resources */,
 				641310C01950D6850023B844 /* appicon-512.png in Resources */,
+				641310C91950DB620023B844 /* appicon-64.png in Resources */,
+				641310C71950DB3E0023B844 /* appicon-128.png in Resources */,
 				6413109B195086250023B844 /* ApplicationItemView.xib in Resources */,
 				6413108E194F87110023B844 /* connstatus_connecting.png in Resources */,
 				64169E42194E609300C1F0A1 /* Images.xcassets in Resources */,
@@ -352,6 +370,8 @@
 				641310AA1950B8D80023B844 /* MenuItemView.xib in Resources */,
 				64131091194F87920023B844 /* connstatus_connected.png in Resources */,
 				641310B21950BE5F0023B844 /* ExecuteScriptView.xib in Resources */,
+				641310CD1950DB940023B844 /* appicon-16.png in Resources */,
+				641310CB1950DB790023B844 /* appicon-32.png in Resources */,
 				64131074194F42EF0023B844 /* MainMenu.xib in Resources */,
 				641310A119508AB30023B844 /* checkmark.png in Resources */,
 			);
