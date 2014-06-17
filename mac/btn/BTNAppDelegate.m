@@ -76,6 +76,15 @@
                 [alert runModal];
             }
         }
+        
+        if(cache.selectedURLs != nil) {
+            for(NSString *url in cache.selectedURLs) {
+                if(url) {
+                    NSLog(@"Opening URL... %@", url);
+                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+                }
+            }
+        }
     }
 }
 -(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort {

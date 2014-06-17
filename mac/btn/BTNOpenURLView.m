@@ -90,6 +90,10 @@ CGFloat const ROW_HEIGHT = 40.0f;
         return;
     }
     
+    if(![url hasPrefix:@"http"]) {
+        url = [NSString stringWithFormat:@"http://%@", url];
+    }
+    
     NSLog(@"Adding URL: %@", url);
     [urls addObject:url];
     [self.tblURLs reloadData];
