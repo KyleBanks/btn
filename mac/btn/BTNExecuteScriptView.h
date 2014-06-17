@@ -17,6 +17,7 @@
 
 @interface BTNExecuteScriptView : NSView
 
+@property (weak) IBOutlet NSTextField *lblScriptPath;
 @property (weak) IBOutlet NSButton *cmdSelectScript;
 @property id<BTNExecuteScriptViewProtocol> delegate;
 

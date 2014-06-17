@@ -29,6 +29,13 @@
     [super drawRect:dirtyRect];
     [self.cmdSelectScript setTarget:self];
     [self.cmdSelectScript setAction:@selector(cmdSelectScriptClicked)];
+    
+    BTNCache *cache = [BTNCache sharedCache];
+    if(cache.selectedScript) {
+        self.lblScriptPath.stringValue = cache.selectedScript.path.path;
+    } else {
+        self.lblScriptPath.stringValue = @"No script selected.";
+    }
 }
 
 -(void)cmdSelectScriptClicked {
