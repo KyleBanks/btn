@@ -30,7 +30,7 @@
     self.imgImage.image = self.application.image;
     
     if([self.application isEqualTo:self.delegate.selectedApplication]) {
-        [self.imgSelected setImage:[NSImage imageNamed:@"application_selected"]];
+        [self.imgSelected setImage:[NSImage imageNamed:@"checkmark"]];
     } else {
         [self.imgSelected setImage:nil];
     }

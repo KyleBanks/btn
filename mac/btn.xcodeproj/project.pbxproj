@@ -16,8 +16,16 @@
 		64131099194FBEA60023B844 /* BTNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 64131098194FBEA60023B844 /* BTNApplication.m */; };
 		6413109B195086250023B844 /* ApplicationItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6413109A195086250023B844 /* ApplicationItemView.xib */; };
 		6413109F1950866B0023B844 /* BTNApplicationItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6413109E1950866B0023B844 /* BTNApplicationItemView.m */; };
-		641310A119508AB30023B844 /* application_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310A019508AB30023B844 /* application_selected.png */; };
+		641310A119508AB30023B844 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310A019508AB30023B844 /* checkmark.png */; };
 		641310A519509BB20023B844 /* BTNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310A419509BB20023B844 /* BTNCache.m */; };
+		641310AA1950B8D80023B844 /* MenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641310A91950B8D80023B844 /* MenuItemView.xib */; };
+		641310AD1950B9340023B844 /* BTNMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310AC1950B9340023B844 /* BTNMenuItemView.m */; };
+		641310B01950BB290023B844 /* BTNActionHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310AF1950BB290023B844 /* BTNActionHelper.m */; };
+		641310B21950BE5F0023B844 /* ExecuteScriptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641310B11950BE5F0023B844 /* ExecuteScriptView.xib */; };
+		641310B51950BEBC0023B844 /* BTNExecuteScriptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310B41950BEBC0023B844 /* BTNExecuteScriptView.m */; };
+		641310B81950C7200023B844 /* BTNScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310B71950C7200023B844 /* BTNScript.m */; };
+		641310C01950D6850023B844 /* appicon-512.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310BF1950D6850023B844 /* appicon-512.png */; };
+		641310C31950D81A0023B844 /* appicon-1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310C21950D81A0023B844 /* appicon-1024.png */; };
 		64169E2A194E609300C1F0A1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E29194E609300C1F0A1 /* Cocoa.framework */; };
 		64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64169E32194E609300C1F0A1 /* InfoPlist.strings */; };
 		64169E36194E609300C1F0A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E35194E609300C1F0A1 /* main.m */; };
@@ -54,9 +62,22 @@
 		6413109A195086250023B844 /* ApplicationItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApplicationItemView.xib; sourceTree = "<group>"; };
 		6413109D1950866B0023B844 /* BTNApplicationItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNApplicationItemView.h; sourceTree = "<group>"; };
 		6413109E1950866B0023B844 /* BTNApplicationItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNApplicationItemView.m; sourceTree = "<group>"; };
-		641310A019508AB30023B844 /* application_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = application_selected.png; path = btn/application_selected.png; sourceTree = "<group>"; };
+		641310A019508AB30023B844 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkmark.png; path = btn/checkmark.png; sourceTree = "<group>"; };
 		641310A319509BB20023B844 /* BTNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNCache.h; sourceTree = "<group>"; };
 		641310A419509BB20023B844 /* BTNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNCache.m; sourceTree = "<group>"; };
+		641310A61950B4E40023B844 /* BTNAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNAction.h; sourceTree = "<group>"; };
+		641310A91950B8D80023B844 /* MenuItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MenuItemView.xib; sourceTree = "<group>"; };
+		641310AB1950B9340023B844 /* BTNMenuItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNMenuItemView.h; sourceTree = "<group>"; };
+		641310AC1950B9340023B844 /* BTNMenuItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNMenuItemView.m; sourceTree = "<group>"; };
+		641310AE1950BB290023B844 /* BTNActionHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNActionHelper.h; sourceTree = "<group>"; };
+		641310AF1950BB290023B844 /* BTNActionHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNActionHelper.m; sourceTree = "<group>"; };
+		641310B11950BE5F0023B844 /* ExecuteScriptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExecuteScriptView.xib; sourceTree = "<group>"; };
+		641310B31950BEBC0023B844 /* BTNExecuteScriptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNExecuteScriptView.h; sourceTree = "<group>"; };
+		641310B41950BEBC0023B844 /* BTNExecuteScriptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNExecuteScriptView.m; sourceTree = "<group>"; };
+		641310B61950C7200023B844 /* BTNScript.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNScript.h; sourceTree = "<group>"; };
+		641310B71950C7200023B844 /* BTNScript.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNScript.m; sourceTree = "<group>"; };
+		641310BF1950D6850023B844 /* appicon-512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-512.png"; sourceTree = "<group>"; };
+		641310C21950D81A0023B844 /* appicon-1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "appicon-1024.png"; sourceTree = "<group>"; };
 		64169E26194E609300C1F0A1 /* btn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = btn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64169E29194E609300C1F0A1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		64169E2C194E609300C1F0A1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -103,7 +124,8 @@
 		64131087194F7FFE0023B844 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				641310A019508AB30023B844 /* application_selected.png */,
+				641310C11950D8100023B844 /* AppIcon */,
+				641310A019508AB30023B844 /* checkmark.png */,
 				6413108F194F87920023B844 /* connstatus_connected.png */,
 				64131090194F87920023B844 /* connstatus_disconnected.png */,
 				6413108D194F87110023B844 /* connstatus_connecting.png */,
@@ -116,6 +138,11 @@
 			children = (
 				64131097194FBEA60023B844 /* BTNApplication.h */,
 				64131098194FBEA60023B844 /* BTNApplication.m */,
+				641310A61950B4E40023B844 /* BTNAction.h */,
+				641310AE1950BB290023B844 /* BTNActionHelper.h */,
+				641310AF1950BB290023B844 /* BTNActionHelper.m */,
+				641310B61950C7200023B844 /* BTNScript.h */,
+				641310B71950C7200023B844 /* BTNScript.m */,
 			);
 			name = Entity;
 			sourceTree = "<group>";
@@ -127,6 +154,12 @@
 				6413109A195086250023B844 /* ApplicationItemView.xib */,
 				6413109D1950866B0023B844 /* BTNApplicationItemView.h */,
 				6413109E1950866B0023B844 /* BTNApplicationItemView.m */,
+				641310A91950B8D80023B844 /* MenuItemView.xib */,
+				641310AB1950B9340023B844 /* BTNMenuItemView.h */,
+				641310AC1950B9340023B844 /* BTNMenuItemView.m */,
+				641310B11950BE5F0023B844 /* ExecuteScriptView.xib */,
+				641310B31950BEBC0023B844 /* BTNExecuteScriptView.h */,
+				641310B41950BEBC0023B844 /* BTNExecuteScriptView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -138,6 +171,15 @@
 				641310A419509BB20023B844 /* BTNCache.m */,
 			);
 			name = Cache;
+			sourceTree = "<group>";
+		};
+		641310C11950D8100023B844 /* AppIcon */ = {
+			isa = PBXGroup;
+			children = (
+				641310C21950D81A0023B844 /* appicon-1024.png */,
+				641310BF1950D6850023B844 /* appicon-512.png */,
+			);
+			name = AppIcon;
 			sourceTree = "<group>";
 		};
 		64169E1D194E609300C1F0A1 = {
@@ -302,12 +344,16 @@
 			files = (
 				64131092194F87920023B844 /* connstatus_disconnected.png in Resources */,
 				64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */,
+				641310C01950D6850023B844 /* appicon-512.png in Resources */,
 				6413109B195086250023B844 /* ApplicationItemView.xib in Resources */,
 				6413108E194F87110023B844 /* connstatus_connecting.png in Resources */,
 				64169E42194E609300C1F0A1 /* Images.xcassets in Resources */,
+				641310C31950D81A0023B844 /* appicon-1024.png in Resources */,
+				641310AA1950B8D80023B844 /* MenuItemView.xib in Resources */,
 				64131091194F87920023B844 /* connstatus_connected.png in Resources */,
+				641310B21950BE5F0023B844 /* ExecuteScriptView.xib in Resources */,
 				64131074194F42EF0023B844 /* MainMenu.xib in Resources */,
-				641310A119508AB30023B844 /* application_selected.png in Resources */,
+				641310A119508AB30023B844 /* checkmark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,10 +372,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				64131072194F41B60023B844 /* BTNAppController.m in Sources */,
+				641310AD1950B9340023B844 /* BTNMenuItemView.m in Sources */,
 				6413109F1950866B0023B844 /* BTNApplicationItemView.m in Sources */,
 				64169E66194E616100C1F0A1 /* BTNGateway.m in Sources */,
+				641310B51950BEBC0023B844 /* BTNExecuteScriptView.m in Sources */,
+				641310B81950C7200023B844 /* BTNScript.m in Sources */,
 				64169E62194E614800C1F0A1 /* ORSSerialPort.m in Sources */,
 				64131099194FBEA60023B844 /* BTNApplication.m in Sources */,
+				641310B01950BB290023B844 /* BTNActionHelper.m in Sources */,
 				6413108C194F80A80023B844 /* NSImage+Additions.m in Sources */,
 				64169E63194E614800C1F0A1 /* ORSSerialPortManager.m in Sources */,
 				641310A519509BB20023B844 /* BTNCache.m in Sources */,

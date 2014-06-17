@@ -8,7 +8,6 @@
 
 #import "BTNApplication.h"
 
-NSString * const kSELECTED_APPLICATION = @"btn-selected-application";
 NSString * const kDISPLAY_NAME = @"displayName";
 NSString * const kPATH = @"path";
 NSString * const kIMAGE = @"image";

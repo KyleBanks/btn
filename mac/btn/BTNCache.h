@@ -7,14 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BTNAction.h"
 
 @class BTNApplication;
+@class BTNScript;
 
 @interface BTNCache : NSObject
 
 +(BTNCache *)sharedCache;
 
+
+-(BTNAction)preferredAction;
+-(void)setPreferredAction:(BTNAction)preferredAction;
+
 -(BTNApplication *)selectedApplication;
 -(void)setSelectedApplication:(BTNApplication *)selectedApplication;
+
+-(BTNScript *)selectedScript;
+-(void)setSelectedScript:(BTNScript *)selectedScript;
 
 @end

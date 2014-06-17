@@ -8,8 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-extern NSString * const kSELECTED_APPLICATION;
-
 @interface BTNApplication : NSObject <NSCoding>
 
 @property NSString *displayName;

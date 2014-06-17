@@ -10,6 +10,7 @@
 #import "NSImage+Additions.h"
 #import "BTNApplication.h"
 #import "BTNCache.h"
+#import "BTNMenuItemView.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -26,6 +27,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     NSMetadataQuery *applicationListQuery;
 }
 
+#pragma mark - Initialization
 -(id)init {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 
@@ -51,7 +53,6 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
                                        selector:@selector(updateStatusBarIcon)
                                        userInfo:nil
                                         repeats:YES];
-        [self queryForInstalledApplications];
     }
     
     return self;
@@ -63,10 +64,11 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
     [statusItem setMenu:self.statusMenu];
     [statusItem setHighlightMode:YES];
-   // menuView = [[BTNMenuView alloc] initWithStatusItem:statusItem];
     
+    [self constructMenu];
 }
 
+#pragma mark - Connection Status Management
 -(void)setBTNConnected:(BOOL)isConnected {
     if(isConnected) {
         connectionStatus = CONNSTATUS_CONNECTED;
@@ -75,15 +77,114 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     }
 }
 
+#pragma mark - Menu Management
 -(void)updateStatusBarIcon {
     NSImage *image = [statusIconMap objectForKey:[NSNumber numberWithInt:connectionStatus]];
     [statusItem setImage:image];
 }
 
+-(void)constructMenu {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+
+    [self.statusMenu removeAllItems];
+    
+    NSMenuItem *itemApplicationList = [[NSMenuItem alloc] init];
+    [itemApplicationList setView:[self constructMenuItemViewForAction:BTNActionOpenApplication]];
+    [self.statusMenu addItem:itemApplicationList];
+    
+    if(applicationList) {
+        [self constructApplicationList:itemApplicationList];
+    } else {
+        [self queryForInstalledApplications];
+    }
+    
+    NSMenuItem *itemOpenURL = [[NSMenuItem alloc] init];
+    [itemOpenURL setView:[self constructMenuItemViewForAction:BTNActionOpenURL]];
+    [self.statusMenu addItem:itemOpenURL];
+    
+    NSMenuItem *itemExecuteScript = [[NSMenuItem alloc] init];
+    [itemExecuteScript setView:[self constructMenuItemViewForAction:BTNActionExecuteScript]];
+    itemExecuteScript.submenu = [self constructExecuteScriptSubmenu];
+    [self.statusMenu addItem:itemExecuteScript];
+    
+}
+
+-(BTNMenuItemView *)constructMenuItemViewForAction:(BTNAction)action {
+    BTNMenuItemView *view = nil;
+    
+    NSArray *topLevelObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"MenuItemView"
+                                  owner:nil
+                        topLevelObjects:&topLevelObjects];
+    
+    for(id topLevelObject in topLevelObjects) {
+        if([topLevelObject isKindOfClass:[BTNMenuItemView class]]) {
+            view = (BTNMenuItemView *) topLevelObject;
+            view.representingAction = action;
+            break;
+        }
+    }
+    return view;
+}
+
+-(void)constructApplicationList:(NSMenuItem *)itemApplicationList {
+    NSMenu *submenu = [[NSMenu alloc] init];
+
+    for(BTNApplication *app in applicationList) {
+        
+        NSMenuItem *item = [[NSMenuItem alloc] init];
+        NSArray *topLevelObjects;
+        [[NSBundle mainBundle] loadNibNamed:@"ApplicationItemView"
+                                      owner:nil
+                            topLevelObjects:&topLevelObjects];
+        
+        for(id topLevelObject in topLevelObjects) {
+            if([topLevelObject isKindOfClass:[BTNApplicationItemView class]]) {
+                BTNApplicationItemView *applicationItemView = (BTNApplicationItemView *) topLevelObject;
+                applicationItemView.delegate = self;
+                applicationItemView.application = app;
+                
+                item.view = applicationItemView;
+                
+                [submenu addItem:item];
+                break;
+            }
+        }
+    }
+    
+    [itemApplicationList setSubmenu:submenu];
+}
+
+-(NSMenu *)constructExecuteScriptSubmenu {
+    NSMenu *submenu = [[NSMenu alloc] init];
+    
+    BTNExecuteScriptView *view = nil;
+    NSArray *topLevelObjects;
+    [[NSBundle mainBundle] loadNibNamed:@"ExecuteScriptView"
+                                  owner:nil
+                        topLevelObjects:&topLevelObjects];
+    
+    for(id topLevelObject in topLevelObjects) {
+        if([topLevelObject isKindOfClass:[BTNExecuteScriptView class]]) {
+            view = (BTNExecuteScriptView *) topLevelObject;
+            view.delegate = self;
+            break;
+        }
+    }
+    
+    NSMenuItem *executeScriptItem = [[NSMenuItem alloc] init];
+    [executeScriptItem setView:view];
+    [submenu addItem:executeScriptItem];
+    
+    return submenu;
+}
+
 # pragma mark - Get list of installed apps
 -(void)queryForInstalledApplications {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+
     applicationListQuery = [[NSMetadataQuery alloc] init];
-    [applicationListQuery setSearchScopes: @[@"/Applications"]];  // if you want to isolate to Applications
+    
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"kMDItemKind == 'Application'"];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -92,9 +193,16 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
                                                object:nil];
     
     [applicationListQuery setPredicate:pred];
+    [applicationListQuery setSearchScopes: @[@"/Applications"]];
     [applicationListQuery startQuery];
 }
 -(void)installedApplicationsQueryFinished:(NSNotification *)notification {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSMetadataQueryDidFinishGatheringNotification
+                                                  object:nil];
+
     NSMutableArray *tmpApplicationList = [[NSMutableArray alloc] init];
     for(NSMetadataItem *applicationMeta in applicationListQuery.results) {
         NSString *displayName = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemDisplayName];
@@ -102,13 +210,11 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
         NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:path];
         path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 
-        
         if(displayName && path && image) {
             [tmpApplicationList addObject:[[BTNApplication alloc] initWithDisplayName:displayName
                                                                            andPath:[NSURL URLWithString:path]
                                                                           andImage:image]];
         }
-
     }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayName"
@@ -117,37 +223,26 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     applicationList = [tmpApplicationList sortedArrayUsingDescriptors:sortDescriptors];
     NSLog(@"Found %lu applications...", (unsigned long)applicationList.count);
     
-    int index = 0;
-    for(BTNApplication *app in applicationList) {
-        
-        NSMenuItem *item = [[NSMenuItem alloc] init];
-        NSArray *topLevelObjects;
-        [[NSBundle mainBundle] loadNibNamed:@"ApplicationItemView"
-                                      owner:nil
-                            topLevelObjects:&topLevelObjects];
-        for(id topLevelObject in topLevelObjects) {
-            if([topLevelObject isKindOfClass:[BTNApplicationItemView class]]) {
-                BTNApplicationItemView *applicationItemView = (BTNApplicationItemView *) topLevelObject;
-                applicationItemView.delegate = self;
-                applicationItemView.application = app;
-
-                item.view = applicationItemView;
-                [self.statusMenu addItem:item];
-                break;
-            }
-        }
-
-        index++;
-    }
+    [self constructMenu];
 }
 
-#pragma mark BTNApplicationItemViewDelegate
+#pragma mark - BTNApplicationItemViewDelegate
 -(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event {
     [self.statusMenu cancelTracking];
     
     [BTNCache sharedCache].selectedApplication = application;
+    [BTNCache sharedCache].preferredAction = BTNActionOpenApplication;
 }
 -(BTNApplication *)selectedApplication {
     return [BTNCache sharedCache].selectedApplication;
+}
+#pragma mark - BTNExecuteScriptViewDelegate
+-(void)btnExecuteScriptView:(BTNExecuteScriptView *)executeScriptView didSelectScript:(BTNScript *)script {
+    [self.statusMenu cancelTracking];
+    
+    [BTNCache sharedCache].selectedScript = script;
+    [BTNCache sharedCache].preferredAction = BTNActionExecuteScript;
+    
+    [[BTNGateway sharedGateway] simulateBTNPress];
 }
 @end

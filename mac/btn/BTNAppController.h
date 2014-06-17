@@ -8,8 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import "BTNApplicationItemView.h"
+#import "BTNExecuteScriptView.h"
 
-@interface BTNAppController : NSObject <BTNApplicationItemViewDelegate>
+@interface BTNAppController : NSObject <BTNApplicationItemViewDelegate, BTNExecuteScriptViewProtocol>
 
 @property (strong) IBOutlet NSMenu *statusMenu;
 

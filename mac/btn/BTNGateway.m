@@ -180,4 +180,11 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
     NSLog(@"Serial Port [%@] was closed...", serialPort.path);
 }
 
+#pragma mark - Testing Only
+-(void)simulateBTNPress {
+    for (id<BTNGatewayDelegate> delegate in delegates) {
+        [delegate btnGateway:self didReceiveCommand:BTN_PRESSED];
+    }
+}
+
 @end
