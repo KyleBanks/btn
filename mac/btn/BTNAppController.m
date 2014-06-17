@@ -241,14 +241,33 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
                                                                           andImage:image]];
         }
     }
-    
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayName"
-                                                                   ascending:YES];
-    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
-    applicationList = [tmpApplicationList sortedArrayUsingDescriptors:sortDescriptors];
+
+    applicationList = tmpApplicationList;
+    [self sortApplicationList];
     NSLog(@"Found %lu applications...", (unsigned long)applicationList.count);
     
+}
+-(void)sortApplicationList {
+    applicationList = [applicationList sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+        BTNApplication *a = (BTNApplication *)obj1;
+        BTNApplication *b = (BTNApplication *)obj2;
+        
+        BOOL aSelected = [[BTNCache sharedCache].selectedApplications containsObject:a];
+        BOOL bSelected = [[BTNCache sharedCache].selectedApplications containsObject:b];
+        
+        if(aSelected == bSelected) {
+            return [a.displayName compare:b.displayName];
+        } else {
+            if(aSelected) {
+                return NSOrderedAscending;
+            } else {
+                return NSOrderedDescending;
+            }
+        }
+        
+    }];
     [self constructMenu];
+
 }
 
 #pragma mark - BTNApplicationItemViewDelegate
@@ -264,6 +283,8 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
         [newApplicationList addObject:application];
     }
     cache.selectedApplications = newApplicationList;
+    
+    [self performSelectorInBackground:@selector(sortApplicationList) withObject:nil];
 }
 #pragma mark - BTNExecuteScriptViewDelegate
 -(void)btnExecuteScriptView:(BTNExecuteScriptView *)executeScriptView didSelectScript:(BTNScript *)script {
