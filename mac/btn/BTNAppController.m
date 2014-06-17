@@ -8,6 +8,7 @@
 
 #import "BTNAppController.h"
 #import "NSImage+Additions.h"
+#import "BTNApplication.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -19,6 +20,9 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     int connectionStatus;
     NSDictionary *statusIconMap;
+    
+    NSArray *applicationList;
+    NSMetadataQuery *applicationListQuery;
 }
 
 -(id)init {
@@ -46,6 +50,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
                                        selector:@selector(updateStatusBarIcon)
                                        userInfo:nil
                                         repeats:YES];
+        [self queryForInstalledApplications];
     }
     
     return self;
@@ -72,5 +77,52 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 -(void)updateStatusBarIcon {
     NSImage *image = [statusIconMap objectForKey:[NSNumber numberWithInt:connectionStatus]];
     [statusItem setImage:image];
+}
+
+# pragma mark - Get list of installed apps
+-(void)queryForInstalledApplications {
+    applicationListQuery = [[NSMetadataQuery alloc] init];
+    [applicationListQuery setSearchScopes: @[@"/Applications"]];  // if you want to isolate to Applications
+    NSPredicate *pred = [NSPredicate predicateWithFormat:@"kMDItemKind == 'Application'"];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(installedApplicationsQueryFinished:)
+                                                 name:NSMetadataQueryDidFinishGatheringNotification
+                                               object:nil];
+    
+    [applicationListQuery setPredicate:pred];
+    [applicationListQuery startQuery];
+}
+-(void)installedApplicationsQueryFinished:(NSNotification *)notification {
+    NSMutableArray *tmpApplicationList = [[NSMutableArray alloc] init];
+    for(NSMetadataItem *applicationMeta in applicationListQuery.results) {
+        NSString *displayName = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemDisplayName];
+        NSString *path = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemPath];
+        NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:path];
+        
+        if(displayName && path && image) {
+            [tmpApplicationList addObject:[[BTNApplication alloc] initWithDisplayName:displayName
+                                                                           andPath:[NSURL URLWithString:path]
+                                                                          andImage:image]];
+        }
+
+    }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"displayName"
+                                                                   ascending:YES];
+    NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
+    applicationList = [tmpApplicationList sortedArrayUsingDescriptors:sortDescriptors];
+    NSLog(@"Found %lu applications...", (unsigned long)applicationList.count);
+    
+    int index = 0;
+    for(BTNApplication *app in applicationList) {
+        NSMenuItem *item = [[NSMenuItem alloc] initWithTitle:app.displayName
+                                                      action:@selector(queryForInstalledApplications)
+                                               keyEquivalent:@""];
+        [item setImage:app.image];
+        [self.statusMenu addItem:item];
+        
+        index++;
+    }
 }
 @end
