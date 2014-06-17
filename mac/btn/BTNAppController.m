@@ -9,7 +9,7 @@
 #import "BTNAppController.h"
 #import "NSImage+Additions.h"
 #import "BTNApplication.h"
-#import "BTNAppDelegate.h"
+#import "BTNCache.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -145,10 +145,9 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 -(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event {
     [self.statusMenu cancelTracking];
     
-    self.appDelegate.selectedApplication = application;
-    [self.appDelegate saveSelectedApplication];
+    [BTNCache sharedCache].selectedApplication = application;
 }
 -(BTNApplication *)selectedApplication {
-    return self.appDelegate.selectedApplication;
+    return [BTNCache sharedCache].selectedApplication;
 }
 @end

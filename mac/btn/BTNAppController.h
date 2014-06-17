@@ -9,13 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "BTNApplicationItemView.h"
 
-@class BTNAppDelegate;
-
 @interface BTNAppController : NSObject <BTNApplicationItemViewDelegate>
 
 @property (strong) IBOutlet NSMenu *statusMenu;
-
-@property BTNAppDelegate *appDelegate;
 
 -(void)setBTNConnected:(BOOL)isConnected;
 

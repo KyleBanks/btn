@@ -9,13 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "BTNGateway.h"
 
-@class BTNApplication;
-
 @interface BTNAppDelegate : NSObject <NSApplicationDelegate, BTNGatewayDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
-
-@property BTNApplication *selectedApplication;
--(void)saveSelectedApplication;
 
 @end
