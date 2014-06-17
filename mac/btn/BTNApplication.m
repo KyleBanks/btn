@@ -8,9 +8,10 @@
 
 #import "BTNApplication.h"
 
-#define kDISPLAY_NAME @"displayName"
-#define kPATH @"path"
-#define kIMAGE @"image"
+NSString * const kSELECTED_APPLICATION = @"btn-selected-application";
+NSString * const kDISPLAY_NAME = @"displayName";
+NSString * const kPATH = @"path";
+NSString * const kIMAGE = @"image";
 
 @implementation BTNApplication
 

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-#define kSELECTED_APPLICATION @"btn-selected-application"
+extern NSString * const kSELECTED_APPLICATION;
 
 @interface BTNApplication : NSObject <NSCoding>
 
