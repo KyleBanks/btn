@@ -16,7 +16,7 @@
 		64131099194FBEA60023B844 /* BTNApplication.m in Sources */ = {isa = PBXBuildFile; fileRef = 64131098194FBEA60023B844 /* BTNApplication.m */; };
 		6413109B195086250023B844 /* ApplicationItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6413109A195086250023B844 /* ApplicationItemView.xib */; };
 		6413109F1950866B0023B844 /* BTNApplicationItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6413109E1950866B0023B844 /* BTNApplicationItemView.m */; };
-		641310A119508AB30023B844 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310A019508AB30023B844 /* checkmark.png */; };
+		641310A119508AB30023B844 /* checkmark@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310A019508AB30023B844 /* checkmark@2x.png */; };
 		641310A519509BB20023B844 /* BTNCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310A419509BB20023B844 /* BTNCache.m */; };
 		641310AA1950B8D80023B844 /* MenuItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 641310A91950B8D80023B844 /* MenuItemView.xib */; };
 		641310AD1950B9340023B844 /* BTNMenuItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310AC1950B9340023B844 /* BTNMenuItemView.m */; };
@@ -36,6 +36,7 @@
 		641310D81950E3B80023B844 /* NSTextFieldCell+VerticalAlign.m in Sources */ = {isa = PBXBuildFile; fileRef = 641310D71950E3B80023B844 /* NSTextFieldCell+VerticalAlign.m */; };
 		641310DA1950E4700023B844 /* delete-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310D91950E4700023B844 /* delete-icon.png */; };
 		641310DC1950E49F0023B844 /* delete-icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310DB1950E49F0023B844 /* delete-icon@2x.png */; };
+		641310DE1951D9A50023B844 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 641310DD1951D9A50023B844 /* checkmark.png */; };
 		64169E2A194E609300C1F0A1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64169E29194E609300C1F0A1 /* Cocoa.framework */; };
 		64169E34194E609300C1F0A1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 64169E32194E609300C1F0A1 /* InfoPlist.strings */; };
 		64169E36194E609300C1F0A1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E35194E609300C1F0A1 /* main.m */; };
@@ -72,7 +73,7 @@
 		6413109A195086250023B844 /* ApplicationItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ApplicationItemView.xib; sourceTree = "<group>"; };
 		6413109D1950866B0023B844 /* BTNApplicationItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNApplicationItemView.h; sourceTree = "<group>"; };
 		6413109E1950866B0023B844 /* BTNApplicationItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNApplicationItemView.m; sourceTree = "<group>"; };
-		641310A019508AB30023B844 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkmark.png; path = btn/checkmark.png; sourceTree = "<group>"; };
+		641310A019508AB30023B844 /* checkmark@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "checkmark@2x.png"; path = "btn/checkmark@2x.png"; sourceTree = "<group>"; };
 		641310A319509BB20023B844 /* BTNCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNCache.h; sourceTree = "<group>"; };
 		641310A419509BB20023B844 /* BTNCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNCache.m; sourceTree = "<group>"; };
 		641310A61950B4E40023B844 /* BTNAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNAction.h; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		641310D71950E3B80023B844 /* NSTextFieldCell+VerticalAlign.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSTextFieldCell+VerticalAlign.m"; sourceTree = "<group>"; };
 		641310D91950E4700023B844 /* delete-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delete-icon.png"; path = "btn/delete-icon.png"; sourceTree = "<group>"; };
 		641310DB1950E49F0023B844 /* delete-icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "delete-icon@2x.png"; path = "btn/delete-icon@2x.png"; sourceTree = "<group>"; };
+		641310DD1951D9A50023B844 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = checkmark.png; path = btn/checkmark.png; sourceTree = "<group>"; };
 		64169E26194E609300C1F0A1 /* btn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = btn.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64169E29194E609300C1F0A1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		64169E2C194E609300C1F0A1 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -147,7 +149,8 @@
 			isa = PBXGroup;
 			children = (
 				641310C11950D8100023B844 /* AppIcon */,
-				641310A019508AB30023B844 /* checkmark.png */,
+				641310A019508AB30023B844 /* checkmark@2x.png */,
+				641310DD1951D9A50023B844 /* checkmark.png */,
 				6413108F194F87920023B844 /* connstatus_connected.png */,
 				641310D91950E4700023B844 /* delete-icon.png */,
 				641310DB1950E49F0023B844 /* delete-icon@2x.png */,
@@ -393,9 +396,10 @@
 				641310B21950BE5F0023B844 /* ExecuteScriptView.xib in Resources */,
 				641310CD1950DB940023B844 /* appicon-16.png in Resources */,
 				641310CB1950DB790023B844 /* appicon-32.png in Resources */,
+				641310DE1951D9A50023B844 /* checkmark.png in Resources */,
 				641310DA1950E4700023B844 /* delete-icon.png in Resources */,
 				64131074194F42EF0023B844 /* MainMenu.xib in Resources */,
-				641310A119508AB30023B844 /* checkmark.png in Resources */,
+				641310A119508AB30023B844 /* checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

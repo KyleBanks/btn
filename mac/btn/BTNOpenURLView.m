@@ -13,7 +13,7 @@
 NSString * const COLUMN_URL = @"COLUMN_URL";
 NSString * const COLUMN_ACTION = @"COLUMN_ACTION";
 
-CGFloat const ROW_HEIGHT = 40.0f;
+CGFloat const ROW_HEIGHT = 32.0f;
 
 @implementation BTNOpenURLView
 {
@@ -40,6 +40,8 @@ CGFloat const ROW_HEIGHT = 40.0f;
     
     [self.cmdAddURL setTarget:self];
     [self.cmdAddURL setAction:@selector(addURL)];
+    
+    [self.txtURLInput.cell setFocusRingType:NSFocusRingTypeNone];
 }
 #pragma mark - NSTableViewDatasource implementation
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
@@ -100,6 +102,9 @@ CGFloat const ROW_HEIGHT = 40.0f;
     self.txtURLInput.stringValue = @"";
     
     [[BTNCache sharedCache] setSelectedURLS:urls];
+}
+- (IBAction)txtURLInputPressedEnter:(id)sender {
+    [self addURL];
 }
 
 @end

@@ -11,6 +11,7 @@
 @interface BTNScript : NSObject <NSCoding>
 
 @property NSURL *path;
+@property BOOL showOutput;
 
 -(id)initWithPath:(NSURL *)path;
 

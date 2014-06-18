@@ -9,6 +9,7 @@
 #import "BTNScript.h"
 
 NSString * const kSCRIPT_PATH = @"path";
+NSString * const kSHOW_OUTPUT = @"show-output";
 
 @implementation BTNScript
 
@@ -22,11 +23,13 @@ NSString * const kSCRIPT_PATH = @"path";
 -(id) initWithCoder:(NSCoder *)aDecoder {
     if(self = [super init]) {
         self.path = [aDecoder decodeObjectForKey:kSCRIPT_PATH];
+        self.showOutput = [aDecoder decodeBoolForKey:kSHOW_OUTPUT];
     }
     return self;
 }
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     [aCoder encodeObject:self.path forKey:kSCRIPT_PATH];
+    [aCoder encodeBool:self.showOutput forKey:kSHOW_OUTPUT];
 }
 
 #pragma mark - Implementation

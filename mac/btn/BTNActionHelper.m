@@ -13,9 +13,9 @@
 +(NSString *)titleForBTNAction:(BTNAction)action {
     switch (action) {
         case BTNActionOpenApplication:
-            return @"Open Application";
+            return @"Open Applications";
         case BTNActionOpenURL:
-            return @"Open URL(s)";
+            return @"Open URLs";
         case BTNActionExecuteScript:
             return @"Execute Script";
         case BTNActionDoNothing:

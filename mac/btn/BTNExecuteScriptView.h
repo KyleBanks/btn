@@ -19,6 +19,7 @@
 
 @property (weak) IBOutlet NSTextField *lblScriptPath;
 @property (weak) IBOutlet NSButton *cmdSelectScript;
+@property (weak) IBOutlet NSButton *chkShowOutput;
 @property id<BTNExecuteScriptViewProtocol> delegate;
 
 @end

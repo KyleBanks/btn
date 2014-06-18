@@ -9,6 +9,7 @@
 #import "BTNExecuteScriptView.h"
 #import "BTNCache.h"
 #import "BTNScript.h"
+#import "NSTextFieldCell+VerticalAlign.h"
 
 @implementation BTNExecuteScriptView
 
@@ -30,9 +31,16 @@
     BTNCache *cache = [BTNCache sharedCache];
     if(cache.selectedScript) {
         self.lblScriptPath.stringValue = cache.selectedScript.path.path;
+        [self.chkShowOutput setState:cache.selectedScript.showOutput ? NSOnState: NSOffState];
+        [self.chkShowOutput setEnabled:YES];
     } else {
         self.lblScriptPath.stringValue = @"No script selected.";
+        self.chkShowOutput.state = NSOffState;
+        [self.chkShowOutput setEnabled:NO];
     }
+    
+    self.chkShowOutput.target = self;
+    self.chkShowOutput.action = @selector(toggleShowOutput);
 }
 
 -(void)cmdSelectScriptClicked {
@@ -63,6 +71,23 @@
         }
 
     }
+}
+
+-(void)toggleShowOutput {
+    BOOL showOutput = NO;
+    if(self.chkShowOutput.state == NSOffState) {
+        self.chkShowOutput.state = NSOnState;
+        showOutput = YES;
+    } else {
+        self.chkShowOutput.state = NSOffState;
+        showOutput = NO;
+    }
+    [self.chkShowOutput setNeedsDisplay];
+    
+    BTNCache *cache = [BTNCache sharedCache];
+    
+    cache.selectedScript.showOutput = showOutput;
+    cache.selectedScript = cache.selectedScript;
 }
 
 @end

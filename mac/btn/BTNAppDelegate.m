@@ -60,20 +60,22 @@
                 NSError *err;
                 NSString *output = [selectedScript executeWithError:&err];
                 
-                NSAlert *alert = [[NSAlert alloc] init];
-                [alert addButtonWithTitle:@"OK"];
-                if(err) {
-                    NSLog(@"ERROR: %@", err);
-                    [alert setMessageText:@"Error Executing Script"];
-                    [alert setInformativeText:err.description];
-                    [alert setAlertStyle:NSCriticalAlertStyle];
-                } else {
-                    NSLog(@"output: %@", output);
-                    [alert setMessageText:@"Script Executed"];
-                    [alert setInformativeText:output];
-                    [alert setAlertStyle:NSInformationalAlertStyle];
+                if (selectedScript.showOutput) {
+                    NSAlert *alert = [[NSAlert alloc] init];
+                    [alert addButtonWithTitle:@"OK"];
+                    if(err) {
+                        NSLog(@"ERROR: %@", err);
+                        [alert setMessageText:@"Error Executing Script"];
+                        [alert setInformativeText:err.description];
+                        [alert setAlertStyle:NSCriticalAlertStyle];
+                    } else {
+                        NSLog(@"output: %@", output);
+                        [alert setMessageText:@"Script Executed"];
+                        [alert setInformativeText:output];
+                        [alert setAlertStyle:NSInformationalAlertStyle];
+                    }
+                    [alert runModal];
                 }
-                [alert runModal];
             }
         }
         

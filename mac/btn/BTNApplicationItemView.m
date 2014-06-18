@@ -10,6 +10,7 @@
 #import "BTNApplication.h"
 #import "BTNAppDelegate.h"
 #import "BTNCache.h"
+#import "NSTextFieldCell+VerticalAlign.h"
 
 @implementation BTNApplicationItemView
 
