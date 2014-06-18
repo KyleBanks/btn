@@ -305,11 +305,9 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 #pragma mark - Settings Window Management
 -(void)openSettingsMenu {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-    
 
-        settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
-        [settingsWindow showWindow:self];
-    //}
+    settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
+    [settingsWindow showWindow:self];
     
     [settingsWindow.window makeKeyAndOrderFront:self];
     [settingsWindow.window setOrderedIndex:0];

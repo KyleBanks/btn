@@ -11,5 +11,6 @@
 @interface BTNSettingsWindowContoller : NSWindowController
 
 @property (weak) IBOutlet NSButton *cmdClearActions;
+@property (weak) IBOutlet NSButton *cmdSimulateClick;
 
 @end

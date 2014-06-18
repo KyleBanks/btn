@@ -181,6 +181,8 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
 
 #pragma mark - Testing Only
 -(void)simulateBTNPress {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+
     for (id<BTNGatewayDelegate> delegate in delegates) {
         [delegate btnGateway:self didReceiveCommand:BTN_PRESSED];
     }
