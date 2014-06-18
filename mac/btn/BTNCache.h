@@ -26,6 +26,9 @@
 -(NSMutableArray *)selectedURLs;
 -(void)setSelectedURLs:(NSArray *)selectedURLs;
 
+-(void)clearSelectedApplications;
+-(void)clearSelectedURLs;
+-(void)clearSelectedScript;
 -(void)clearAllActionCaches;
 
 @end

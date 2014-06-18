@@ -49,6 +49,7 @@
 		64169E62194E614800C1F0A1 /* ORSSerialPort.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E5F194E614800C1F0A1 /* ORSSerialPort.m */; };
 		64169E63194E614800C1F0A1 /* ORSSerialPortManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E61194E614800C1F0A1 /* ORSSerialPortManager.m */; };
 		64169E66194E616100C1F0A1 /* BTNGateway.m in Sources */ = {isa = PBXBuildFile; fileRef = 64169E65194E616100C1F0A1 /* BTNGateway.m */; };
+		647DF8101951F2A200B8848D /* BTNWhiteNSView.m in Sources */ = {isa = PBXBuildFile; fileRef = 647DF80F1951F2A200B8848D /* BTNWhiteNSView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,8 @@
 		64169E61194E614800C1F0A1 /* ORSSerialPortManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ORSSerialPortManager.m; path = btn/ORSSerialPort/ORSSerialPortManager.m; sourceTree = "<group>"; };
 		64169E64194E616100C1F0A1 /* BTNGateway.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNGateway.h; sourceTree = "<group>"; };
 		64169E65194E616100C1F0A1 /* BTNGateway.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNGateway.m; sourceTree = "<group>"; };
+		647DF80E1951F2A200B8848D /* BTNWhiteNSView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNWhiteNSView.h; sourceTree = "<group>"; };
+		647DF80F1951F2A200B8848D /* BTNWhiteNSView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNWhiteNSView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -196,6 +199,8 @@
 				641310D01950DBEE0023B844 /* BTNOpenURLView.h */,
 				641310D11950DBEE0023B844 /* BTNOpenURLView.m */,
 				641310DF1951DE150023B844 /* SettingsWindow.xib */,
+				647DF80E1951F2A200B8848D /* BTNWhiteNSView.h */,
+				647DF80F1951F2A200B8848D /* BTNWhiteNSView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -442,6 +447,7 @@
 				64169E63194E614800C1F0A1 /* ORSSerialPortManager.m in Sources */,
 				641310A519509BB20023B844 /* BTNCache.m in Sources */,
 				64169E36194E609300C1F0A1 /* main.m in Sources */,
+				647DF8101951F2A200B8848D /* BTNWhiteNSView.m in Sources */,
 				64169E3D194E609300C1F0A1 /* BTNAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

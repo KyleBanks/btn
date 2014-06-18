@@ -157,11 +157,20 @@ static BTNCache *sharedCache;
     }
 }
 
-#pragma mark - Clear All
--(void) clearAllActionCaches {
+#pragma mark - Clear Caches
+-(void)clearSelectedApplications {
     self.selectedApplications = [[NSMutableArray alloc] init];
-    self.selectedScript = nil;
+}
+-(void)clearSelectedURLs {
     self.selectedURLs = [[NSMutableArray alloc] init];
+}
+-(void)clearSelectedScript {
+    self.selectedScript = nil;
+}
+-(void) clearAllActionCaches {
+    [self clearSelectedApplications];
+    [self clearSelectedURLs];
+    [self clearSelectedScript];
 }
 
 

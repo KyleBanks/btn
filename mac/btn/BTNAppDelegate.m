@@ -54,6 +54,15 @@
             }
         }
         
+        if(cache.selectedURLs != nil) {
+            for(NSString *url in cache.selectedURLs) {
+                if(url) {
+                    NSLog(@"Opening URL... %@", url);
+                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
+                }
+            }
+        }
+        
         if (cache.selectedScript != nil) {
             BTNScript *selectedScript = cache.selectedScript;
             if(selectedScript) {
@@ -78,15 +87,7 @@
                 }
             }
         }
-        
-        if(cache.selectedURLs != nil) {
-            for(NSString *url in cache.selectedURLs) {
-                if(url) {
-                    NSLog(@"Opening URL... %@", url);
-                    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:url]];
-                }
-            }
-        }
+
     }
 }
 -(void)btnGateway:(BTNGateway *)gateway lostConnectionToBTN:(ORSSerialPort *)btnSerialPort {
