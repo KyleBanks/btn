@@ -319,6 +319,10 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 -(void)openSettingsMenu {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
     
+    if(self.settingsWindow) {
+        [self.settingsWindow close];
+    }
+    
     self.settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
     [self.settingsWindow showWindow:self];
     

@@ -35,7 +35,6 @@ typedef enum BTNCommand {
 
 -(void)disconnectBTN;
 
-
--(void)simulateBTNPress; //TESTING ONLY
+-(void)simulateBTNPress;
 
 @end

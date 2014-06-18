@@ -125,7 +125,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pzo-NJ-j4g">
                                 <rect key="frame" x="20" y="138" width="17" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="inline" title="1" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="xSo-dC-aMh">
+                                <buttonCell key="cell" type="inline" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="xSo-dC-aMh">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>
                                 </buttonCell>
@@ -133,7 +133,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W5s-Zs-D2p">
                                 <rect key="frame" x="20" y="104" width="17" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="inline" title="1" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="hsI-a2-oGb">
+                                <buttonCell key="cell" type="inline" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="hsI-a2-oGb">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>
                                 </buttonCell>
@@ -141,7 +141,7 @@
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6bg-sc-7bn">
                                 <rect key="frame" x="20" y="71" width="17" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="inline" title="1" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="Uem-IZ-OC3">
+                                <buttonCell key="cell" type="inline" bezelStyle="inline" alignment="center" borderStyle="border" inset="2" id="Uem-IZ-OC3">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="smallSystemBold"/>
                                 </buttonCell>

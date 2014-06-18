@@ -268,6 +268,7 @@
 		64169E2F194E609300C1F0A1 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				647DF8511952157E00B8848D /* BTN API */,
 				641310A219509BA20023B844 /* Cache */,
 				6413109C195086510023B844 /* View */,
 				64131096194FBE8A0023B844 /* Entity */,
@@ -277,8 +278,6 @@
 				64131071194F41B60023B844 /* BTNAppController.m */,
 				641310E11951DE440023B844 /* BTNSettingsWindowContoller.h */,
 				641310E21951DE440023B844 /* BTNSettingsWindowContoller.m */,
-				64169E64194E616100C1F0A1 /* BTNGateway.h */,
-				64169E65194E616100C1F0A1 /* BTNGateway.m */,
 				64169E41194E609300C1F0A1 /* Images.xcassets */,
 				64169E30194E609300C1F0A1 /* Supporting Files */,
 			);
@@ -310,6 +309,15 @@
 				64169E61194E614800C1F0A1 /* ORSSerialPortManager.m */,
 			);
 			name = ORSSerialPort;
+			sourceTree = "<group>";
+		};
+		647DF8511952157E00B8848D /* BTN API */ = {
+			isa = PBXGroup;
+			children = (
+				64169E64194E616100C1F0A1 /* BTNGateway.h */,
+				64169E65194E616100C1F0A1 /* BTNGateway.m */,
+			);
+			name = "BTN API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

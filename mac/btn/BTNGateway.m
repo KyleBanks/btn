@@ -179,7 +179,7 @@ NSString * const SERIAL_COMM_MSG_STOP = @";";
     NSLog(@"Serial Port [%@] was closed...", serialPort.path);
 }
 
-#pragma mark - Testing Only
+#pragma mark - Used for testing through Settings only
 -(void)simulateBTNPress {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 
