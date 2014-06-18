@@ -18,6 +18,8 @@
             return @"Open URLs";
         case BTNActionExecuteScript:
             return @"Execute Script";
+        case BTNActionSettings:
+            return @"Settings";
         case BTNActionDoNothing:
             return @"Do Nothing";
     }

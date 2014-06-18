@@ -91,7 +91,7 @@ static BTNCache *sharedCache;
 }
 
 #pragma mark - Selected URLs cache
--(void)setSelectedURLS:(NSArray *)theSelectedURLs {
+-(void)setSelectedURLs:(NSArray *)theSelectedURLs {
     if(theSelectedURLs) {
         NSLog(@"Serializing %ld Selected URLs", theSelectedURLs.count);
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:theSelectedURLs];
@@ -155,6 +155,13 @@ static BTNCache *sharedCache;
             NSLog(@"Error removing cache at path[%@]: %@", path, error.localizedDescription);
         }
     }
+}
+
+#pragma mark - Clear All
+-(void) clearAllActionCaches {
+    self.selectedApplications = [[NSMutableArray alloc] init];
+    self.selectedScript = nil;
+    self.selectedURLs = [[NSMutableArray alloc] init];
 }
 
 

@@ -43,10 +43,12 @@ CGFloat const ROW_HEIGHT = 32.0f;
     
     [self.txtURLInput.cell setFocusRingType:NSFocusRingTypeNone];
 }
+
 #pragma mark - NSTableViewDatasource implementation
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     return urls.count;
 }
+
 #pragma mark - NSTableViewDelegate implementation
 - (NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     NSView *view = [[NSView alloc] initWithFrame:NSRectFromCGRect(CGRectMake(0, 0, tableColumn.width, ROW_HEIGHT))];
@@ -84,7 +86,7 @@ CGFloat const ROW_HEIGHT = 32.0f;
     [urls removeObjectAtIndex:sender.tag];
     [self.tblURLs reloadData];
     
-    [[BTNCache sharedCache] setSelectedURLS:urls];
+    [[BTNCache sharedCache] setSelectedURLs:urls];
 }
 -(void)addURL {
     NSString *url = self.txtURLInput.stringValue;
@@ -101,7 +103,7 @@ CGFloat const ROW_HEIGHT = 32.0f;
     [self.tblURLs reloadData];
     self.txtURLInput.stringValue = @"";
     
-    [[BTNCache sharedCache] setSelectedURLS:urls];
+    [[BTNCache sharedCache] setSelectedURLs:urls];
 }
 - (IBAction)txtURLInputPressedEnter:(id)sender {
     [self addURL];

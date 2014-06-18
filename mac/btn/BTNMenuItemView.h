@@ -13,6 +13,7 @@
 
 @property (weak) IBOutlet NSTextField *txtLabel;
 @property (weak) IBOutlet NSButton *btnItemCount;
+@property (weak) IBOutlet NSButton *imgArrow;
 
 @property BTNAction representingAction;
 

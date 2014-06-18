@@ -12,6 +12,7 @@
 #import "BTNCache.h"
 #import "BTNMenuItemView.h"
 #import "BTNOpenURLView.h"
+#import "BTNSettingsWindowContoller.h"
 
 NSInteger const CONNSTATUS_DISCONNECTED = 0;
 NSInteger const CONNSTATUS_CONNECTED = 1;
@@ -26,6 +27,8 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     NSArray *applicationList;
     NSMetadataQuery *applicationListQuery;
+    
+    BTNSettingsWindowContoller *settingsWindow;
 }
 
 #pragma mark - Initialization
@@ -108,6 +111,12 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     [itemExecuteScript setView:[self constructMenuItemViewForAction:BTNActionExecuteScript]];
     itemExecuteScript.submenu = [self constructExecuteScriptSubmenu];
     [self.statusMenu addItem:itemExecuteScript];
+    
+    NSMenuItem *itemOpenSettings = [[NSMenuItem alloc] init];
+    [itemOpenSettings setView:[self constructMenuItemViewForAction:BTNActionSettings]];
+    [self.statusMenu addItem:itemOpenSettings];
+    [itemOpenSettings setTarget:self];
+    [itemOpenSettings setAction:@selector(openSettingsMenu)];
     
 }
 
@@ -291,5 +300,20 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     [self.statusMenu cancelTracking];
     
     [BTNCache sharedCache].selectedScript = script;
+}
+
+#pragma mark - Settings Window Management
+-(void)openSettingsMenu {
+    NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    
+
+        settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
+        [settingsWindow showWindow:self];
+    //}
+    
+    [settingsWindow.window makeKeyAndOrderFront:self];
+    [settingsWindow.window setOrderedIndex:0];
+    [settingsWindow.window makeKeyAndOrderFront:self];
+
 }
 @end

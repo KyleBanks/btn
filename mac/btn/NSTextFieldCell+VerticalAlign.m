@@ -14,8 +14,8 @@
     if (self.isEditable) {
         return [super titleRectForBounds:frame];
     }
-    CGFloat stringHeight       = self.attributedStringValue.size.height;
-    NSRect titleRect          = [super titleRectForBounds:frame];
+    CGFloat stringHeight = self.attributedStringValue.size.height;
+    NSRect titleRect = [super titleRectForBounds:frame];
     titleRect.origin.y = frame.origin.y +
     (frame.size.height - stringHeight) / 2.0;
     return titleRect;

@@ -12,5 +12,6 @@ typedef NS_ENUM(NSInteger, BTNAction) {
     BTNActionDoNothing, //Must be kept first to equal 0
     BTNActionOpenApplication,
     BTNActionOpenURL,
-    BTNActionExecuteScript
+    BTNActionExecuteScript,
+    BTNActionSettings
 };
