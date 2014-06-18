@@ -42,6 +42,7 @@ CGFloat const ROW_HEIGHT = 32.0f;
     [self.cmdAddURL setAction:@selector(addURL)];
     
     [self.txtURLInput.cell setFocusRingType:NSFocusRingTypeNone];
+    [self.txtURLInput.window makeFirstResponder:self.txtURLInput];
 }
 
 #pragma mark - NSTableViewDatasource implementation

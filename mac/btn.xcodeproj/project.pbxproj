@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		64131072194F41B60023B844 /* BTNAppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 64131071194F41B60023B844 /* BTNAppController.m */; };
-		64131074194F42EF0023B844 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64131073194F42EF0023B844 /* MainMenu.xib */; };
 		6413108C194F80A80023B844 /* NSImage+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6413108B194F80A80023B844 /* NSImage+Additions.m */; };
 		6413108E194F87110023B844 /* connstatus_connecting.png in Resources */ = {isa = PBXBuildFile; fileRef = 6413108D194F87110023B844 /* connstatus_connecting.png */; };
 		64131091194F87920023B844 /* connstatus_connected.png in Resources */ = {isa = PBXBuildFile; fileRef = 6413108F194F87920023B844 /* connstatus_connected.png */; };
@@ -65,7 +64,6 @@
 /* Begin PBXFileReference section */
 		64131070194F41B60023B844 /* BTNAppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BTNAppController.h; sourceTree = "<group>"; };
 		64131071194F41B60023B844 /* BTNAppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BTNAppController.m; sourceTree = "<group>"; };
-		64131073194F42EF0023B844 /* MainMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainMenu.xib; sourceTree = "<group>"; };
 		6413108A194F80A80023B844 /* NSImage+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+Additions.h"; sourceTree = "<group>"; };
 		6413108B194F80A80023B844 /* NSImage+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+Additions.m"; sourceTree = "<group>"; };
 		6413108D194F87110023B844 /* connstatus_connecting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = connstatus_connecting.png; path = btn/connstatus_connecting.png; sourceTree = "<group>"; };
@@ -185,7 +183,6 @@
 		6413109C195086510023B844 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				64131073194F42EF0023B844 /* MainMenu.xib */,
 				6413109A195086250023B844 /* ApplicationItemView.xib */,
 				6413109D1950866B0023B844 /* BTNApplicationItemView.h */,
 				6413109E1950866B0023B844 /* BTNApplicationItemView.m */,
@@ -412,7 +409,6 @@
 				641310CB1950DB790023B844 /* appicon-32.png in Resources */,
 				641310DE1951D9A50023B844 /* checkmark.png in Resources */,
 				641310DA1950E4700023B844 /* delete-icon.png in Resources */,
-				64131074194F42EF0023B844 /* MainMenu.xib in Resources */,
 				641310A119508AB30023B844 /* checkmark@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

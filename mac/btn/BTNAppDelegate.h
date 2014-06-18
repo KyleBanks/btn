@@ -10,6 +10,4 @@
 
 @interface BTNAppDelegate : NSObject <NSApplicationDelegate, BTNGatewayDelegate>
 
-@property (assign) IBOutlet NSWindow *window;
-
 @end

@@ -20,6 +20,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 
 @implementation BTNAppController
 {
+    NSMenu *statusMenu;
     NSStatusItem *statusItem;
     
     int connectionStatus;
@@ -32,39 +33,53 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 #pragma mark - Initialization
 -(id)init {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-
+    
     if(self = [super init]) {
+        statusMenu = [[NSMenu alloc] init];
+        statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+        [statusItem setMenu:statusMenu];
+        [statusItem setHighlightMode:YES];
+        
         connectionStatus = CONNSTATUS_CONNECTING;
         
         statusIconMap = @{
-            [NSNumber numberWithInt:CONNSTATUS_CONNECTED]: [[NSImage imageNamed:@"connstatus_connected"] scaledToHeight:19.0f],
-            [NSNumber numberWithInt:CONNSTATUS_DISCONNECTED]: [[NSImage imageNamed:@"connstatus_disconnected"] scaledToHeight:19.0f],
-            [NSNumber numberWithInt:CONNSTATUS_CONNECTING]: [[NSImage imageNamed:@"connstatus_connecting"] scaledToHeight:19.0f]
-        };
+                          [NSNumber numberWithInt:CONNSTATUS_CONNECTED]: [[NSImage imageNamed:@"connstatus_connected"] scaledToHeight:19.0f],
+                          [NSNumber numberWithInt:CONNSTATUS_DISCONNECTED]: [[NSImage imageNamed:@"connstatus_disconnected"] scaledToHeight:19.0f],
+                          [NSNumber numberWithInt:CONNSTATUS_CONNECTING]: [[NSImage imageNamed:@"connstatus_connecting"] scaledToHeight:19.0f]
+                          };
         
-        NSNib *nib = [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
-        NSArray *topLevelObjects;
-        if (![nib instantiateWithOwner:self topLevelObjects:&topLevelObjects]) {
-            NSLog(@"ERROR: Unable to initialize BTNAppController");
-        } else {
-            NSLog(@"BTNAppController initialized.");
-        }
+        //        NSNib *nib = [[NSNib alloc] initWithNibNamed:@"MainMenu" bundle:[NSBundle mainBundle]];
+        //
+        //        NSArray *tmpTopLevelObjects;
+        //        if (![nib instantiateWithOwner:[NSApplication sharedApplication] topLevelObjects:&tmpTopLevelObjects]) {
+        //            NSLog(@"ERROR: Unable to initialize BTNAppController");
+        //        } else {
+        //            NSLog(@"BTNAppController initialized.");
+        //
+        //            for (NSObject *o in tmpTopLevelObjects) {
+        //                NSLog(@"%@", o);
+        //            }
+        //        }
+        //        topLevelObjects = tmpTopLevelObjects;
+        
+        //        [self.view display];
         
         [NSTimer scheduledTimerWithTimeInterval:1
                                          target:self
                                        selector:@selector(updateStatusBarIcon)
                                        userInfo:nil
                                         repeats:YES];
+        
+        [self constructMenu];
     }
     
     return self;
 }
-
 -(void)awakeFromNib {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-
+    
     statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    [statusItem setMenu:self.statusMenu];
+    [statusItem setMenu:statusMenu];
     [statusItem setHighlightMode:YES];
     
     [self constructMenu];
@@ -87,12 +102,12 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 
 -(void)constructMenu {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-
-    [self.statusMenu removeAllItems];
+    
+    [statusMenu removeAllItems];
     
     NSMenuItem *itemApplicationList = [[NSMenuItem alloc] init];
     [itemApplicationList setView:[self constructMenuItemViewForAction:BTNActionOpenApplication]];
-    [self.statusMenu addItem:itemApplicationList];
+    [statusMenu addItem:itemApplicationList];
     
     if(applicationList) {
         [self constructApplicationList:itemApplicationList];
@@ -103,16 +118,16 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     NSMenuItem *itemOpenURL = [[NSMenuItem alloc] init];
     [itemOpenURL setView:[self constructMenuItemViewForAction:BTNActionOpenURL]];
     itemOpenURL.submenu = [self constructOpenURLSubmenu];
-    [self.statusMenu addItem:itemOpenURL];
+    [statusMenu addItem:itemOpenURL];
     
     NSMenuItem *itemExecuteScript = [[NSMenuItem alloc] init];
     [itemExecuteScript setView:[self constructMenuItemViewForAction:BTNActionExecuteScript]];
     itemExecuteScript.submenu = [self constructExecuteScriptSubmenu];
-    [self.statusMenu addItem:itemExecuteScript];
+    [statusMenu addItem:itemExecuteScript];
     
     NSMenuItem *itemOpenSettings = [[NSMenuItem alloc] init];
     [itemOpenSettings setView:[self constructMenuItemViewForAction:BTNActionSettings]];
-    [self.statusMenu addItem:itemOpenSettings];
+    [statusMenu addItem:itemOpenSettings];
     [itemOpenSettings setTarget:self];
     [itemOpenSettings setAction:@selector(openSettingsMenu)];
     
@@ -138,7 +153,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 
 -(void)constructApplicationList:(NSMenuItem *)itemApplicationList {
     NSMenu *submenu = [[NSMenu alloc] init];
-
+    
     for(BTNApplication *app in applicationList) {
         
         NSMenuItem *item = [[NSMenuItem alloc] init];
@@ -214,7 +229,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 # pragma mark - Get list of installed apps
 -(void)queryForInstalledApplications {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-
+    
     applicationListQuery = [[NSMetadataQuery alloc] init];
     
     NSPredicate *pred = [NSPredicate predicateWithFormat:@"kMDItemKind == 'Application'"];
@@ -234,21 +249,21 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:NSMetadataQueryDidFinishGatheringNotification
                                                   object:nil];
-
+    
     NSMutableArray *tmpApplicationList = [[NSMutableArray alloc] init];
     for(NSMetadataItem *applicationMeta in applicationListQuery.results) {
         NSString *displayName = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemDisplayName];
         NSString *path = [applicationMeta valueForAttribute:(__bridge NSString *)kMDItemPath];
         NSImage *image = [[NSWorkspace sharedWorkspace] iconForFile:path];
         path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+        
         if(displayName && path && image) {
             [tmpApplicationList addObject:[[BTNApplication alloc] initWithDisplayName:displayName
-                                                                           andPath:[NSURL URLWithString:path]
-                                                                          andImage:image]];
+                                                                              andPath:[NSURL URLWithString:path]
+                                                                             andImage:image]];
         }
     }
-
+    
     applicationList = tmpApplicationList;
     [self sortApplicationList];
     NSLog(@"Found %lu applications...", (unsigned long)applicationList.count);
@@ -274,16 +289,16 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
         
     }];
     [self constructMenu];
-
+    
 }
 
 #pragma mark - BTNApplicationItemViewDelegate
 -(void)application:(BTNApplication *)application wasClicked:(NSEvent *)event {
-    [self.statusMenu cancelTracking];
+    [statusMenu cancelTracking];
     
     BTNCache *cache = [BTNCache sharedCache];
     NSMutableArray *newApplicationList = [[NSMutableArray alloc] initWithArray:cache.selectedApplications];
-
+    
     if([newApplicationList containsObject:application]) {
         [newApplicationList removeObject:application];
     } else {
@@ -295,7 +310,7 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 }
 #pragma mark - BTNExecuteScriptViewDelegate
 -(void)btnExecuteScriptView:(BTNExecuteScriptView *)executeScriptView didSelectScript:(BTNScript *)script {
-    [self.statusMenu cancelTracking];
+    [statusMenu cancelTracking];
     
     [BTNCache sharedCache].selectedScript = script;
 }
@@ -303,13 +318,13 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 #pragma mark - Settings Window Management
 -(void)openSettingsMenu {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
-
+    
     self.settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
     [self.settingsWindow showWindow:self];
     
     [self.settingsWindow.window makeKeyAndOrderFront:self];
     [self.settingsWindow.window setOrderedIndex:0];
     [self.settingsWindow.window makeKeyAndOrderFront:self];
-
+    
 }
 @end

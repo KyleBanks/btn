@@ -20,8 +20,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
+    NSLog(@"%@", self);
     
     appController = [[BTNAppController alloc] init];
+    
     [BTNGateway addBtnGatewayDelegate:self];
 }
 
