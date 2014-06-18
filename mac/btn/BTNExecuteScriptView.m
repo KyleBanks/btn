@@ -49,25 +49,29 @@
 }
 
 -(void)displayFilePicker {
-    NSOpenPanel *fileDialog = [NSOpenPanel openPanel];
+    self.fileDialog = [NSOpenPanel openPanel];
     
-    [fileDialog setPrompt:@"Select"];
-    [fileDialog setTitle:@"Select Script (.sh)"];
-    [fileDialog setAllowedFileTypes:@[@"sh"]];
-    [fileDialog setAllowsMultipleSelection:NO];
+    [self.fileDialog setPrompt:@"Select"];
+    [self.fileDialog setTitle:@"Select Script (.sh)"];
+    [self.fileDialog setAllowedFileTypes:@[@"sh"]];
+    [self.fileDialog setAllowsMultipleSelection:NO];
     
     BTNCache *cache = [BTNCache sharedCache];
     NSURL *selectedScript = cache.selectedScript.path;
     if(selectedScript) {
-        [fileDialog setDirectoryURL:selectedScript];
+        [self.fileDialog setDirectoryURL:selectedScript];
     }
     
-    if([fileDialog runModal] == NSFileHandlingPanelOKButton) {
-        NSURL *scriptPath = [[fileDialog URLs] objectAtIndex:0];
+    if([self.fileDialog runModal] == NSFileHandlingPanelOKButton) {
+        NSURL *scriptPath = [[self.fileDialog URLs] objectAtIndex:0];
         if(scriptPath) {
             NSLog(@"User selected Shell Script: %@", scriptPath.path);
+
+            
+            BTNScript *newScript = [[BTNScript alloc] initWithPath:scriptPath];
+            newScript.showOutput = (self.chkShowOutput.state == NSOnState);
             [self.delegate btnExecuteScriptView:self
-                                didSelectScript:[[BTNScript alloc] initWithPath:scriptPath]];
+                                didSelectScript:newScript];
         }
 
     }
@@ -85,9 +89,10 @@
     [self.chkShowOutput setNeedsDisplay];
     
     BTNCache *cache = [BTNCache sharedCache];
-    
-    cache.selectedScript.showOutput = showOutput;
-    cache.selectedScript = cache.selectedScript;
+    BTNScript *script = cache.selectedScript;
+    script.showOutput = showOutput;
+    [self.delegate btnExecuteScriptView:self
+                        didSelectScript:script];
 }
 
 @end

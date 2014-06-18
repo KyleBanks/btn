@@ -22,4 +22,6 @@
 @property (weak) IBOutlet NSButton *chkShowOutput;
 @property id<BTNExecuteScriptViewProtocol> delegate;
 
+@property (strong) NSOpenPanel *fileDialog;
+
 @end

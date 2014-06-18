@@ -10,9 +10,13 @@
 #import "BTNApplicationItemView.h"
 #import "BTNExecuteScriptView.h"
 
+@class BTNSettingsWindowContoller;
+
 @interface BTNAppController : NSObject <BTNApplicationItemViewDelegate, BTNExecuteScriptViewProtocol>
 
 @property (strong) IBOutlet NSMenu *statusMenu;
+
+@property (strong) BTNSettingsWindowContoller *settingsWindow;
 
 -(void)setBTNConnected:(BOOL)isConnected;
 

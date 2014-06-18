@@ -27,8 +27,6 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
     
     NSArray *applicationList;
     NSMetadataQuery *applicationListQuery;
-    
-    BTNSettingsWindowContoller *settingsWindow;
 }
 
 #pragma mark - Initialization
@@ -306,12 +304,12 @@ NSInteger const CONNSTATUS_CONNECTING = 2;
 -(void)openSettingsMenu {
     NSLog(@"Running %@ '%@'", self.class, NSStringFromSelector(_cmd));
 
-    settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
-    [settingsWindow showWindow:self];
+    self.settingsWindow = [[BTNSettingsWindowContoller alloc] initWithWindowNibName:@"SettingsWindow"];
+    [self.settingsWindow showWindow:self];
     
-    [settingsWindow.window makeKeyAndOrderFront:self];
-    [settingsWindow.window setOrderedIndex:0];
-    [settingsWindow.window makeKeyAndOrderFront:self];
+    [self.settingsWindow.window makeKeyAndOrderFront:self];
+    [self.settingsWindow.window setOrderedIndex:0];
+    [self.settingsWindow.window makeKeyAndOrderFront:self];
 
 }
 @end
