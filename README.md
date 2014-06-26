@@ -1,6 +1,8 @@
 btn
 ===
 
+![btn menu](https://s3.amazonaws.com/kylewbanks/btn_github.png)
+
 btn is a Mac app that connects to a physical, Arduino based, button via USB. 
 
 Users can select a number of actions to take when the button is pressed, such as launching application(s), opening URL(s) or executing a shell script. 
