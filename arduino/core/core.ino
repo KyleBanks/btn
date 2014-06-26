@@ -28,13 +28,6 @@ void setup() {
 void loop() {
   //Check for serial input
   readSerialData();
-  
-  onBtnPress();
-}
-
-
-void onBtnPress() {
-//  sendSerialData(SERIAL_COMM_MSG_BTN_PRESSED);
 }
 
 void readSerialData() {
@@ -49,6 +42,7 @@ void readSerialData() {
   digitalWrite(PIN_LED, LOW);
   processSerialComm();
 }
+
 void processSerialComm() {
   if(serialCommBuffer.length() > 0 && serialCommBuffer.indexOf(SERIAL_COMM_MSG_STOP) != -1) {
     String command = serialCommBuffer.substring(0, serialCommBuffer.indexOf(SERIAL_COMM_MSG_STOP));
