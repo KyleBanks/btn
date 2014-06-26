@@ -1,7 +1,8 @@
-btn
-===
 
 ![btn menu](https://s3.amazonaws.com/kylewbanks/btn_github.png)
+
+btn
+===
 
 btn is a Mac app that connects to a physical, Arduino based, button via USB. 
 
